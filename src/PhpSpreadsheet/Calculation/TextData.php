@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,9 +20,9 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- * @version    ##VERSION##, ##DATE##
  */
 class TextData
 {
@@ -34,10 +34,11 @@ class TextData
     }
 
     /**
-     * CHARACTER
+     * CHARACTER.
      *
-     * @param    string    $character    Value
-     * @return    string
+     * @param string $character Value
+     *
+     * @return string
      */
     public static function CHARACTER($character)
     {
@@ -51,14 +52,15 @@ class TextData
             return iconv('UCS-4LE', 'UTF-8', pack('V', $character));
         }
 
-        return mb_convert_encoding('&#' . intval($character) . ';', 'UTF-8', 'HTML-ENTITIES');
+        return mb_convert_encoding('&#' . (int) $character . ';', 'UTF-8', 'HTML-ENTITIES');
     }
 
     /**
-     * TRIMNONPRINTABLE
+     * TRIMNONPRINTABLE.
      *
-     * @param    mixed    $stringValue    Value to check
-     * @return    string
+     * @param mixed $stringValue Value to check
+     *
+     * @return string
      */
     public static function TRIMNONPRINTABLE($stringValue = '')
     {
@@ -80,10 +82,11 @@ class TextData
     }
 
     /**
-     * TRIMSPACES
+     * TRIMSPACES.
      *
-     * @param    mixed    $stringValue    Value to check
-     * @return    string
+     * @param mixed $stringValue Value to check
+     *
+     * @return string
      */
     public static function TRIMSPACES($stringValue = '')
     {
@@ -100,10 +103,11 @@ class TextData
     }
 
     /**
-     * ASCIICODE
+     * ASCIICODE.
      *
-     * @param    string    $characters        Value
-     * @return    int
+     * @param string $characters Value
+     *
+     * @return int
      */
     public static function ASCIICODE($characters)
     {
@@ -120,32 +124,24 @@ class TextData
         }
 
         $character = $characters;
-        if ((function_exists('mb_strlen')) && (function_exists('mb_substr'))) {
-            if (mb_strlen($characters, 'UTF-8') > 1) {
-                $character = mb_substr($characters, 0, 1, 'UTF-8');
-            }
-
-            return self::unicodeToOrd($character);
-        } else {
-            if (strlen($characters) > 0) {
-                $character = substr($characters, 0, 1);
-            }
-
-            return ord($character);
+        if (mb_strlen($characters, 'UTF-8') > 1) {
+            $character = mb_substr($characters, 0, 1, 'UTF-8');
         }
+
+        return self::unicodeToOrd($character);
     }
 
     /**
-     * CONCATENATE
+     * CONCATENATE.
      *
-     * @return    string
+     * @return string
      */
-    public static function CONCATENATE()
+    public static function CONCATENATE(...$args)
     {
         $returnValue = '';
 
         // Loop through arguments
-        $aArgs = Functions::flattenArray(func_get_args());
+        $aArgs = Functions::flattenArray($args);
         foreach ($aArgs as $arg) {
             if (is_bool($arg)) {
                 if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
@@ -161,16 +157,17 @@ class TextData
     }
 
     /**
-     * DOLLAR
+     * DOLLAR.
      *
      * This function converts a number to text using currency format, with the decimals rounded to the specified place.
      * The format used is $#,##0.00_);($#,##0.00)..
      *
-     * @param    float    $value            The value to format
-     * @param    int        $decimals        The number of digits to display to the right of the decimal point.
+     * @param float $value The value to format
+     * @param int $decimals The number of digits to display to the right of the decimal point.
      *                                    If decimals is negative, number is rounded to the left of the decimal point.
      *                                    If you omit decimals, it is assumed to be 2
-     * @return    string
+     *
+     * @return string
      */
     public static function DOLLAR($value = 0, $decimals = 2)
     {
@@ -198,12 +195,13 @@ class TextData
     }
 
     /**
-     * SEARCHSENSITIVE
+     * SEARCHSENSITIVE.
      *
-     * @param    string    $needle        The string to look for
-     * @param    string    $haystack    The string in which to look
-     * @param    int        $offset        Offset within $haystack
-     * @return    string
+     * @param string $needle The string to look for
+     * @param string $haystack The string in which to look
+     * @param int $offset Offset within $haystack
+     *
+     * @return string
      */
     public static function SEARCHSENSITIVE($needle, $haystack, $offset = 1)
     {
@@ -220,11 +218,8 @@ class TextData
                 if (\PhpOffice\PhpSpreadsheet\Shared\StringHelper::countCharacters($needle) == 0) {
                     return $offset;
                 }
-                if (function_exists('mb_strpos')) {
-                    $pos = mb_strpos($haystack, $needle, --$offset, 'UTF-8');
-                } else {
-                    $pos = strpos($haystack, $needle, --$offset);
-                }
+
+                $pos = mb_strpos($haystack, $needle, --$offset, 'UTF-8');
                 if ($pos !== false) {
                     return ++$pos;
                 }
@@ -235,12 +230,13 @@ class TextData
     }
 
     /**
-     * SEARCHINSENSITIVE
+     * SEARCHINSENSITIVE.
      *
-     * @param    string    $needle        The string to look for
-     * @param    string    $haystack    The string in which to look
-     * @param    int        $offset        Offset within $haystack
-     * @return    string
+     * @param string $needle The string to look for
+     * @param string $haystack The string in which to look
+     * @param int $offset Offset within $haystack
+     *
+     * @return string
      */
     public static function SEARCHINSENSITIVE($needle, $haystack, $offset = 1)
     {
@@ -257,11 +253,8 @@ class TextData
                 if (\PhpOffice\PhpSpreadsheet\Shared\StringHelper::countCharacters($needle) == 0) {
                     return $offset;
                 }
-                if (function_exists('mb_stripos')) {
-                    $pos = mb_stripos($haystack, $needle, --$offset, 'UTF-8');
-                } else {
-                    $pos = stripos($haystack, $needle, --$offset);
-                }
+
+                $pos = mb_stripos($haystack, $needle, --$offset, 'UTF-8');
                 if ($pos !== false) {
                     return ++$pos;
                 }
@@ -272,12 +265,13 @@ class TextData
     }
 
     /**
-     * FIXEDFORMAT
+     * FIXEDFORMAT.
      *
-     * @param    mixed        $value    Value to check
-     * @param    int        $decimals
-     * @param    bool        $no_commas
-     * @return    string
+     * @param mixed $value Value to check
+     * @param int $decimals
+     * @param bool $no_commas
+     *
+     * @return string
      */
     public static function FIXEDFORMAT($value, $decimals = 2, $no_commas = false)
     {
@@ -303,11 +297,12 @@ class TextData
     }
 
     /**
-     * LEFT
+     * LEFT.
      *
-     * @param    string    $value    Value
-     * @param    int        $chars    Number of characters
-     * @return    string
+     * @param string $value Value
+     * @param int $chars Number of characters
+     *
+     * @return string
      */
     public static function LEFT($value = '', $chars = 1)
     {
@@ -322,20 +317,17 @@ class TextData
             $value = ($value) ? \PhpOffice\PhpSpreadsheet\Calculation::getTRUE() : \PhpOffice\PhpSpreadsheet\Calculation::getFALSE();
         }
 
-        if (function_exists('mb_substr')) {
-            return mb_substr($value, 0, $chars, 'UTF-8');
-        } else {
-            return substr($value, 0, $chars);
-        }
+        return mb_substr($value, 0, $chars, 'UTF-8');
     }
 
     /**
-     * MID
+     * MID.
      *
-     * @param    string    $value    Value
-     * @param    int        $start    Start character
-     * @param    int        $chars    Number of characters
-     * @return    string
+     * @param string $value Value
+     * @param int $start Start character
+     * @param int $chars Number of characters
+     *
+     * @return string
      */
     public static function MID($value = '', $start = 1, $chars = null)
     {
@@ -354,19 +346,17 @@ class TextData
         if (empty($chars)) {
             return '';
         }
-        if (function_exists('mb_substr')) {
-            return mb_substr($value, --$start, $chars, 'UTF-8');
-        } else {
-            return substr($value, --$start, $chars);
-        }
+
+        return mb_substr($value, --$start, $chars, 'UTF-8');
     }
 
     /**
-     * RIGHT
+     * RIGHT.
      *
-     * @param    string    $value    Value
-     * @param    int        $chars    Number of characters
-     * @return    string
+     * @param string $value Value
+     * @param int $chars Number of characters
+     *
+     * @return string
      */
     public static function RIGHT($value = '', $chars = 1)
     {
@@ -381,18 +371,15 @@ class TextData
             $value = ($value) ? \PhpOffice\PhpSpreadsheet\Calculation::getTRUE() : \PhpOffice\PhpSpreadsheet\Calculation::getFALSE();
         }
 
-        if ((function_exists('mb_substr')) && (function_exists('mb_strlen'))) {
-            return mb_substr($value, mb_strlen($value, 'UTF-8') - $chars, $chars, 'UTF-8');
-        } else {
-            return substr($value, strlen($value) - $chars);
-        }
+        return mb_substr($value, mb_strlen($value, 'UTF-8') - $chars, $chars, 'UTF-8');
     }
 
     /**
-     * STRINGLENGTH
+     * STRINGLENGTH.
      *
-     * @param    string    $value    Value
-     * @return    int
+     * @param string $value Value
+     *
+     * @return int
      */
     public static function STRINGLENGTH($value = '')
     {
@@ -402,20 +389,17 @@ class TextData
             $value = ($value) ? \PhpOffice\PhpSpreadsheet\Calculation::getTRUE() : \PhpOffice\PhpSpreadsheet\Calculation::getFALSE();
         }
 
-        if (function_exists('mb_strlen')) {
-            return mb_strlen($value, 'UTF-8');
-        } else {
-            return strlen($value);
-        }
+        return mb_strlen($value, 'UTF-8');
     }
 
     /**
-     * LOWERCASE
+     * LOWERCASE.
      *
      * Converts a string value to upper case.
      *
-     * @param    string        $mixedCaseString
-     * @return    string
+     * @param string $mixedCaseString
+     *
+     * @return string
      */
     public static function LOWERCASE($mixedCaseString)
     {
@@ -429,12 +413,13 @@ class TextData
     }
 
     /**
-     * UPPERCASE
+     * UPPERCASE.
      *
      * Converts a string value to upper case.
      *
-     * @param    string        $mixedCaseString
-     * @return    string
+     * @param string $mixedCaseString
+     *
+     * @return string
      */
     public static function UPPERCASE($mixedCaseString)
     {
@@ -448,12 +433,13 @@ class TextData
     }
 
     /**
-     * PROPERCASE
+     * PROPERCASE.
      *
      * Converts a string value to upper case.
      *
-     * @param    string        $mixedCaseString
-     * @return    string
+     * @param string $mixedCaseString
+     *
+     * @return string
      */
     public static function PROPERCASE($mixedCaseString)
     {
@@ -467,13 +453,14 @@ class TextData
     }
 
     /**
-     * REPLACE
+     * REPLACE.
      *
-     * @param    string    $oldText    String to modify
-     * @param    int        $start        Start character
-     * @param    int        $chars        Number of characters
-     * @param    string    $newText    String to replace in defined position
-     * @return    string
+     * @param string $oldText String to modify
+     * @param int $start Start character
+     * @param int $chars Number of characters
+     * @param string $newText String to replace in defined position
+     *
+     * @return string
      */
     public static function REPLACE($oldText, $start, $chars, $newText)
     {
@@ -489,13 +476,14 @@ class TextData
     }
 
     /**
-     * SUBSTITUTE
+     * SUBSTITUTE.
      *
-     * @param    string    $text        Value
-     * @param    string    $fromText    From Value
-     * @param    string    $toText        To Value
-     * @param    int    $instance    Instance Number
-     * @return    string
+     * @param string $text Value
+     * @param string $fromText From Value
+     * @param string $toText To Value
+     * @param int $instance Instance Number
+     *
+     * @return string
      */
     public static function SUBSTITUTE($text = '', $fromText = '', $toText = '', $instance = 0)
     {
@@ -505,41 +493,31 @@ class TextData
         $instance = floor(Functions::flattenSingleValue($instance));
 
         if ($instance == 0) {
-            if (function_exists('mb_str_replace')) {
-                return mb_str_replace($fromText, $toText, $text);
-            } else {
-                return str_replace($fromText, $toText, $text);
+            return \PhpOffice\PhpSpreadsheet\Shared\StringHelper::mbStrReplace($fromText, $toText, $text);
+        }
+
+        $pos = -1;
+        while ($instance > 0) {
+            $pos = mb_strpos($text, $fromText, $pos + 1, 'UTF-8');
+            if ($pos === false) {
+                break;
             }
-        } else {
-            $pos = -1;
-            while ($instance > 0) {
-                if (function_exists('mb_strpos')) {
-                    $pos = mb_strpos($text, $fromText, $pos + 1, 'UTF-8');
-                } else {
-                    $pos = strpos($text, $fromText, $pos + 1);
-                }
-                if ($pos === false) {
-                    break;
-                }
-                --$instance;
-            }
-            if ($pos !== false) {
-                if (function_exists('mb_strlen')) {
-                    return self::REPLACE($text, ++$pos, mb_strlen($fromText, 'UTF-8'), $toText);
-                } else {
-                    return self::REPLACE($text, ++$pos, strlen($fromText), $toText);
-                }
-            }
+            --$instance;
+        }
+
+        if ($pos !== false) {
+            return self::REPLACE($text, ++$pos, mb_strlen($fromText, 'UTF-8'), $toText);
         }
 
         return $text;
     }
 
     /**
-     * RETURNSTRING
+     * RETURNSTRING.
      *
-     * @param    mixed    $testValue    Value to check
-     * @return    string|null
+     * @param mixed $testValue Value to check
+     *
+     * @return string|null
      */
     public static function RETURNSTRING($testValue = '')
     {
@@ -553,11 +531,12 @@ class TextData
     }
 
     /**
-     * TEXTFORMAT
+     * TEXTFORMAT.
      *
-     * @param    mixed    $value    Value to check
-     * @param    string    $format    Format mask to use
-     * @return    string
+     * @param mixed $value Value to check
+     * @param string $format Format mask to use
+     *
+     * @return string
      */
     public static function TEXTFORMAT($value, $format)
     {
@@ -572,10 +551,11 @@ class TextData
     }
 
     /**
-     * VALUE
+     * VALUE.
      *
-     * @param    mixed    $value    Value to check
-     * @return    bool
+     * @param mixed $value Value to check
+     *
+     * @return bool
      */
     public static function VALUE($value = '')
     {

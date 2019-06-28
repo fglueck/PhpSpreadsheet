@@ -3,10 +3,11 @@
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
 use DateTimeZone;
+use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -15,29 +16,29 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- * @version    ##VERSION##, ##DATE##
  */
 class Gnumeric extends BaseReader implements IReader
 {
     /**
-     * Formats
+     * Formats.
      *
      * @var array
      */
     private $styles = [];
 
     /**
-     * Shared Expressions
+     * Shared Expressions.
      *
      * @var array
      */
@@ -46,7 +47,7 @@ class Gnumeric extends BaseReader implements IReader
     private $referenceHelper = null;
 
     /**
-     * Create a new Gnumeric
+     * Create a new Gnumeric.
      */
     public function __construct()
     {
@@ -57,16 +58,15 @@ class Gnumeric extends BaseReader implements IReader
     /**
      * Can the current IReader read the file?
      *
-     * @param     string         $pFilename
+     * @param string $pFilename
+     *
      * @throws Exception
-     * @return     bool
+     *
+     * @return bool
      */
     public function canRead($pFilename)
     {
-        // Check if file exists
-        if (!file_exists($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
-        }
+        File::assertFile($pFilename);
 
         // Check if gzlib functions are available
         if (!function_exists('gzread')) {
@@ -86,17 +86,15 @@ class Gnumeric extends BaseReader implements IReader
     }
 
     /**
-     * Reads names of the worksheets from a file, without parsing the whole file to a Spreadsheet object
+     * Reads names of the worksheets from a file, without parsing the whole file to a Spreadsheet object.
      *
-     * @param   string         $pFilename
-     * @throws  Exception
+     * @param string $pFilename
+     *
+     * @throws Exception
      */
     public function listWorksheetNames($pFilename)
     {
-        // Check if file exists
-        if (!file_exists($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
-        }
+        File::assertFile($pFilename);
 
         $xml = new XMLReader();
         $xml->xml($this->securityScanFile('compress.zlib://' . realpath($pFilename)), null, \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions());
@@ -117,17 +115,15 @@ class Gnumeric extends BaseReader implements IReader
     }
 
     /**
-     * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns)
+     * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      *
-     * @param   string     $pFilename
-     * @throws   Exception
+     * @param string $pFilename
+     *
+     * @throws Exception
      */
     public function listWorksheetInfo($pFilename)
     {
-        // Check if file exists
-        if (!file_exists($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
-        }
+        File::assertFile($pFilename);
 
         $xml = new XMLReader();
         $xml->xml($this->securityScanFile('compress.zlib://' . realpath($pFilename)), null, \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions());
@@ -184,11 +180,13 @@ class Gnumeric extends BaseReader implements IReader
     }
 
     /**
-     * Loads Spreadsheet from file
+     * Loads Spreadsheet from file.
      *
-     * @param     string         $pFilename
-     * @throws     Exception
-     * @return     Spreadsheet
+     * @param string $pFilename
+     *
+     * @throws Exception
+     *
+     * @return Spreadsheet
      */
     public function load($pFilename)
     {
@@ -200,19 +198,18 @@ class Gnumeric extends BaseReader implements IReader
     }
 
     /**
-     * Loads from file into Spreadsheet instance
+     * Loads from file into Spreadsheet instance.
      *
-     * @param     string         $pFilename
-     * @param    Spreadsheet    $spreadsheet
-     * @throws     Exception
-     * @return     Spreadsheet
+     * @param string $pFilename
+     * @param Spreadsheet $spreadsheet
+     *
+     * @throws Exception
+     *
+     * @return Spreadsheet
      */
     public function loadIntoExisting($pFilename, Spreadsheet $spreadsheet)
     {
-        // Check if file exists
-        if (!file_exists($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
-        }
+        File::assertFile($pFilename);
 
         $timezoneObj = new DateTimeZone('Europe/London');
         $GMT = new DateTimeZone('UTC');
@@ -351,7 +348,7 @@ class Gnumeric extends BaseReader implements IReader
                         $marginSize = 72 / 100; //    Default
                         switch ($marginAttributes['PrefUnit']) {
                             case 'mm':
-                                $marginSize = intval($marginAttributes['Points']) / 100;
+                                $marginSize = (int) ($marginAttributes['Points']) / 100;
                                 break;
                         }
                         switch ($key) {
@@ -431,7 +428,7 @@ class Gnumeric extends BaseReader implements IReader
                             $cell = ($cell == 'TRUE') ? true : false;
                             break;
                         case '30':        //    Integer
-                            $cell = intval($cell);
+                            $cell = (int) $cell;
                             // Excel 2007+ doesn't differentiate between integer and float, so set the value and dropthru to the next (numeric) case
                         case '40':        //    Float
                             $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC;
@@ -519,7 +516,7 @@ class Gnumeric extends BaseReader implements IReader
 
                             $styleArray['alignment']['wrap'] = ($styleAttributes['WrapText'] == '1') ? true : false;
                             $styleArray['alignment']['shrinkToFit'] = ($styleAttributes['ShrinkToFit'] == '1') ? true : false;
-                            $styleArray['alignment']['indent'] = (intval($styleAttributes['Indent']) > 0) ? $styleAttributes['indent'] : 0;
+                            $styleArray['alignment']['indent'] = ((int) ($styleAttributes['Indent']) > 0) ? $styleAttributes['indent'] : 0;
 
                             $RGB = self::parseGnumericColour($styleAttributes['Fore']);
                             $styleArray['font']['color']['rgb'] = $RGB;
@@ -595,7 +592,7 @@ class Gnumeric extends BaseReader implements IReader
 
                             $fontAttributes = $styleRegion->Style->Font->attributes();
                             $styleArray['font']['name'] = (string) $styleRegion->Style->Font;
-                            $styleArray['font']['size'] = intval($fontAttributes['Unit']);
+                            $styleArray['font']['size'] = (int) ($fontAttributes['Unit']);
                             $styleArray['font']['bold'] = ($fontAttributes['Bold'] == '1') ? true : false;
                             $styleArray['font']['italic'] = ($fontAttributes['Italic'] == '1') ? true : false;
                             $styleArray['font']['strike'] = ($fontAttributes['StrikeThrough'] == '1') ? true : false;

@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -12,17 +12,17 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- * @version    ##VERSION##, ##DATE##
  */
 class SheetView
 {
@@ -38,7 +38,7 @@ class SheetView
     ];
 
     /**
-     * ZoomScale
+     * ZoomScale.
      *
      * Valid values range from 10 to 400.
      *
@@ -47,7 +47,7 @@ class SheetView
     private $zoomScale = 100;
 
     /**
-     * ZoomScaleNormal
+     * ZoomScaleNormal.
      *
      * Valid values range from 10 to 400.
      *
@@ -56,7 +56,7 @@ class SheetView
     private $zoomScaleNormal = 100;
 
     /**
-     * View
+     * View.
      *
      * Valid values range from 10 to 400.
      *
@@ -65,14 +65,14 @@ class SheetView
     private $sheetviewType = self::SHEETVIEW_NORMAL;
 
     /**
-     * Create a new SheetView
+     * Create a new SheetView.
      */
     public function __construct()
     {
     }
 
     /**
-     * Get ZoomScale
+     * Get ZoomScale.
      *
      * @return int
      */
@@ -82,13 +82,15 @@ class SheetView
     }
 
     /**
-     * Set ZoomScale
+     * Set ZoomScale.
      *
      * Valid values range from 10 to 400.
      *
-     * @param   int     $pValue
-     * @throws  \PhpOffice\PhpSpreadsheet\Exception
-     * @return  SheetView
+     * @param int $pValue
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     *
+     * @return SheetView
      */
     public function setZoomScale($pValue = 100)
     {
@@ -104,7 +106,7 @@ class SheetView
     }
 
     /**
-     * Get ZoomScaleNormal
+     * Get ZoomScaleNormal.
      *
      * @return int
      */
@@ -114,13 +116,15 @@ class SheetView
     }
 
     /**
-     * Set ZoomScale
+     * Set ZoomScale.
      *
      * Valid values range from 10 to 400.
      *
-     * @param   int     $pValue
-     * @throws  \PhpOffice\PhpSpreadsheet\Exception
-     * @return  SheetView
+     * @param int $pValue
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     *
+     * @return SheetView
      */
     public function setZoomScaleNormal($pValue = 100)
     {
@@ -134,7 +138,7 @@ class SheetView
     }
 
     /**
-     * Get View
+     * Get View.
      *
      * @return string
      */
@@ -144,16 +148,18 @@ class SheetView
     }
 
     /**
-     * Set View
+     * Set View.
      *
      * Valid values are
      *        'normal'            self::SHEETVIEW_NORMAL
      *        'pageLayout'        self::SHEETVIEW_PAGE_LAYOUT
      *        'pageBreakPreview'  self::SHEETVIEW_PAGE_BREAK_PREVIEW
      *
-     * @param    string     $pValue
-     * @throws   \PhpOffice\PhpSpreadsheet\Exception
-     * @return   SheetView
+     * @param string $pValue
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     *
+     * @return SheetView
      */
     public function setView($pValue = null)
     {

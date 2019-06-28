@@ -9,6 +9,8 @@ class XEEValidatorTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider providerInvalidXML
      * @expectedException \PhpOffice\PhpSpreadsheet\Reader\Exception
+     *
+     * @param mixed $filename
      */
     public function testInvalidXML($filename)
     {
@@ -21,8 +23,8 @@ class XEEValidatorTest extends \PHPUnit_Framework_TestCase
     public function providerInvalidXML()
     {
         $tests = [];
-        foreach (glob('data/Reader/XEETestInvalid*.xml') as $file) {
-            $tests[] = [realpath($file), true];
+        foreach (glob(__DIR__ . '/../../data/Reader/XEE/XEETestInvalid*.xml') as $file) {
+            $tests[basename($file)] = [realpath($file)];
         }
 
         return $tests;
@@ -30,6 +32,9 @@ class XEEValidatorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerValidXML
+     *
+     * @param mixed $filename
+     * @param mixed $expectedResult
      */
     public function testValidXML($filename, $expectedResult)
     {
@@ -41,8 +46,8 @@ class XEEValidatorTest extends \PHPUnit_Framework_TestCase
     public function providerValidXML()
     {
         $tests = [];
-        foreach (glob('data/Reader/XEETestValid*.xml') as $file) {
-            $tests[] = [realpath($file), file_get_contents($file)];
+        foreach (glob(__DIR__ . '/../../data/Reader/XEE/XEETestValid*.xml') as $file) {
+            $tests[basename($file)] = [realpath($file), file_get_contents($file)];
         }
 
         return $tests;

@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Exception;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -15,54 +15,54 @@ use PhpOffice\PhpSpreadsheet\Exception;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- * @version    ##VERSION##, ##DATE##
  */
 class ColumnIterator implements \Iterator
 {
     /**
-     * \PhpOffice\PhpSpreadsheet\Worksheet to iterate
+     * \PhpOffice\PhpSpreadsheet\Worksheet to iterate.
      *
      * @var \PhpOffice\PhpSpreadsheet\Worksheet
      */
     private $subject;
 
     /**
-     * Current iterator position
+     * Current iterator position.
      *
      * @var int
      */
     private $position = 0;
 
     /**
-     * Start position
+     * Start position.
      *
      * @var int
      */
     private $startColumn = 0;
 
     /**
-     * End position
+     * End position.
      *
      * @var int
      */
     private $endColumn = 0;
 
     /**
-     * Create a new column iterator
+     * Create a new column iterator.
      *
-     * @param    \PhpOffice\PhpSpreadsheet\Worksheet   $subject       The worksheet to iterate over
-     * @param    string                $startColumn   The column address at which to start iterating
-     * @param    string                $endColumn     Optionally, the column address at which to stop iterating
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $subject The worksheet to iterate over
+     * @param string $startColumn The column address at which to start iterating
+     * @param string $endColumn Optionally, the column address at which to stop iterating
      */
     public function __construct(\PhpOffice\PhpSpreadsheet\Worksheet $subject, $startColumn = 'A', $endColumn = null)
     {
@@ -73,7 +73,7 @@ class ColumnIterator implements \Iterator
     }
 
     /**
-     * Destructor
+     * Destructor.
      */
     public function __destruct()
     {
@@ -81,10 +81,12 @@ class ColumnIterator implements \Iterator
     }
 
     /**
-     * (Re)Set the start column and the current column pointer
+     * (Re)Set the start column and the current column pointer.
      *
-     * @param int    $startColumn    The column address at which to start iterating
+     * @param int $startColumn The column address at which to start iterating
+     *
      * @throws Exception
+     *
      * @return ColumnIterator
      */
     public function resetStart($startColumn = 'A')
@@ -104,9 +106,10 @@ class ColumnIterator implements \Iterator
     }
 
     /**
-     * (Re)Set the end column
+     * (Re)Set the end column.
      *
-     * @param string    $endColumn    The column address at which to stop iterating
+     * @param string $endColumn The column address at which to stop iterating
+     *
      * @return ColumnIterator
      */
     public function resetEnd($endColumn = null)
@@ -118,11 +121,13 @@ class ColumnIterator implements \Iterator
     }
 
     /**
-     * Set the column pointer to the selected column
+     * Set the column pointer to the selected column.
      *
-     * @param   string    $column    The column address to set the current pointer at
-     * @throws  \PhpOffice\PhpSpreadsheet\Exception
-     * @return  ColumnIterator
+     * @param string $column The column address to set the current pointer at
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     *
+     * @return ColumnIterator
      */
     public function seek($column = 'A')
     {
@@ -136,7 +141,7 @@ class ColumnIterator implements \Iterator
     }
 
     /**
-     * Rewind the iterator to the starting column
+     * Rewind the iterator to the starting column.
      */
     public function rewind()
     {
@@ -144,7 +149,7 @@ class ColumnIterator implements \Iterator
     }
 
     /**
-     * Return the current column in this worksheet
+     * Return the current column in this worksheet.
      *
      * @return Column
      */
@@ -154,7 +159,7 @@ class ColumnIterator implements \Iterator
     }
 
     /**
-     * Return the current iterator key
+     * Return the current iterator key.
      *
      * @return string
      */
@@ -164,7 +169,7 @@ class ColumnIterator implements \Iterator
     }
 
     /**
-     * Set the iterator to its next value
+     * Set the iterator to its next value.
      */
     public function next()
     {
@@ -172,7 +177,7 @@ class ColumnIterator implements \Iterator
     }
 
     /**
-     * Set the iterator to its previous value
+     * Set the iterator to its previous value.
      *
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
@@ -190,7 +195,7 @@ class ColumnIterator implements \Iterator
     }
 
     /**
-     * Indicate if more columns exist in the worksheet range of columns that we're iterating
+     * Indicate if more columns exist in the worksheet range of columns that we're iterating.
      *
      * @return bool
      */

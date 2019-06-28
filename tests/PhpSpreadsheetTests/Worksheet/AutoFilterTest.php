@@ -10,11 +10,8 @@ use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 class AutoFilterTest extends \PHPUnit_Framework_TestCase
 {
     private $testInitialRange = 'H2:O256';
-
     private $testAutoFilterObject;
-
     private $mockWorksheetObject;
-
     private $mockCacheController;
 
     public function setUp()
@@ -29,10 +26,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
             ->method('getCellCacheController')
             ->will($this->returnValue($this->mockCacheController));
 
-        $this->testAutoFilterObject = new AutoFilter(
-            $this->testInitialRange,
-            $this->mockWorksheetObject
-        );
+        $this->testAutoFilterObject = new AutoFilter($this->testInitialRange, $this->mockWorksheetObject);
     }
 
     public function testToString()
@@ -112,7 +106,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
         //  There should be no columns yet defined
         $result = $this->testAutoFilterObject->getColumns();
         $this->assertInternalType('array', $result);
-        $this->assertEquals(0, count($result));
+        $this->assertCount(0, $result);
     }
 
     public function testGetColumnOffset()
@@ -153,7 +147,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
         //  Result should be an array of \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column
         //    objects for each column we set indexed by the column ID
         $this->assertInternalType('array', $result);
-        $this->assertEquals(1, count($result));
+        $this->assertCount(1, $result);
         $this->assertArrayHasKey($expectedResult, $result);
         $this->assertInstanceOf(Column::class, $result[$expectedResult]);
     }
@@ -181,7 +175,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
         //  Result should be an array of \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column
         //    objects for each column we set indexed by the column ID
         $this->assertInternalType('array', $result);
-        $this->assertEquals(1, count($result));
+        $this->assertCount(1, $result);
         $this->assertArrayHasKey($expectedResult, $result);
         $this->assertInstanceOf(Column::class, $result[$expectedResult]);
     }
@@ -220,7 +214,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
         //  Result should be an array of \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column
         //    objects for each column we set indexed by the column ID
         $this->assertInternalType('array', $result);
-        $this->assertEquals(count($columnIndexes), count($result));
+        $this->assertCount(count($columnIndexes), $result);
         foreach ($columnIndexes as $columnIndex) {
             $this->assertArrayHasKey($columnIndex, $result);
             $this->assertInstanceOf(Column::class, $result[$columnIndex]);
@@ -298,7 +292,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
         //  Column array should be cleared
         $result = $this->testAutoFilterObject->getColumns();
         $this->assertInternalType('array', $result);
-        $this->assertEquals(0, count($result));
+        $this->assertCount(0, $result);
     }
 
     public function testSetRangeWithExistingColumns()
@@ -328,7 +322,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
         //    still fall within the new range should be retained
         $result = $this->testAutoFilterObject->getColumns();
         $this->assertInternalType('array', $result);
-        $this->assertEquals(count($columnIndexes1), count($result));
+        $this->assertCount(count($columnIndexes1), $result);
     }
 
     public function testClone()

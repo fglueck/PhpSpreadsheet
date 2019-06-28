@@ -96,7 +96,7 @@ $spreadsheet->getActiveSheet()->getCell('A18')->setValue($richText);
 // Merge cells
 $helper->log('Merge cells');
 $spreadsheet->getActiveSheet()->mergeCells('A18:E22');
-$spreadsheet->getActiveSheet()->mergeCells('A28:B28');  // Just to test...
+$spreadsheet->getActiveSheet()->mergeCells('A28:B28'); // Just to test...
 $spreadsheet->getActiveSheet()->unmergeCells('A28:B28'); // Just to test...
 // Protect cells
 $helper->log('Protect cells');
@@ -270,7 +270,7 @@ $helper->log('Add a drawing to the worksheet');
 $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
 $drawing->setName('PhpSpreadsheet logo');
 $drawing->setDescription('PhpSpreadsheet logo');
-$drawing->setPath(__DIR__ . '/../images/PhpSpreadsheet_logo.gif');
+$drawing->setPath(__DIR__ . '/../images/PhpSpreadsheet_logo.png');
 $drawing->setHeight(36);
 $drawing->setCoordinates('D24');
 $drawing->setOffsetX(10);

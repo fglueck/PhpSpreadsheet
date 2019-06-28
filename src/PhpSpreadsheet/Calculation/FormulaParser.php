@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -12,17 +12,17 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- * @version    ##VERSION##, ##DATE##
  */
 /*
 PARTLY BASED ON:
@@ -67,24 +67,25 @@ class FormulaParser
     const OPERATORS_POSTFIX = '%';
 
     /**
-     * Formula
+     * Formula.
      *
      * @var string
      */
     private $formula;
 
     /**
-     * Tokens
+     * Tokens.
      *
      * @var FormulaToken[]
      */
     private $tokens = [];
 
     /**
-     * Create a new FormulaParser
+     * Create a new FormulaParser.
      *
-     * @param     string        $pFormula    Formula to parse
-     * @throws     Exception
+     * @param string $pFormula Formula to parse
+     *
+     * @throws Exception
      */
     public function __construct($pFormula = '')
     {
@@ -100,7 +101,7 @@ class FormulaParser
     }
 
     /**
-     * Get Formula
+     * Get Formula.
      *
      * @return string
      */
@@ -110,23 +111,24 @@ class FormulaParser
     }
 
     /**
-     * Get Token
+     * Get Token.
      *
-     * @param     int        $pId    Token id
-     * @throws  Exception
-     * @return    string
+     * @param int $pId Token id
+     *
+     * @throws Exception
+     *
+     * @return string
      */
     public function getToken($pId = 0)
     {
         if (isset($this->tokens[$pId])) {
             return $this->tokens[$pId];
-        } else {
-            throw new Exception("Token with id $pId does not exist.");
         }
+        throw new Exception("Token with id $pId does not exist.");
     }
 
     /**
-     * Get Token count
+     * Get Token count.
      *
      * @return int
      */
@@ -136,7 +138,7 @@ class FormulaParser
     }
 
     /**
-     * Get Tokens
+     * Get Tokens.
      *
      * @return FormulaToken[]
      */
@@ -146,7 +148,7 @@ class FormulaParser
     }
 
     /**
-     * Parse to tokens
+     * Parse to tokens.
      */
     private function parseToTokens()
     {
@@ -155,7 +157,7 @@ class FormulaParser
 
         // Check if the formula has a valid starting =
         $formulaLength = strlen($this->formula);
-        if ($formulaLength < 2 || $this->formula{0} != '=') {
+        if ($formulaLength < 2 || $this->formula[0] != '=') {
             return;
         }
 
@@ -177,8 +179,8 @@ class FormulaParser
             // embeds are doubled
             // end marks token
             if ($inString) {
-                if ($this->formula{$index} == self::QUOTE_DOUBLE) {
-                    if ((($index + 2) <= $formulaLength) && ($this->formula{$index + 1} == self::QUOTE_DOUBLE)) {
+                if ($this->formula[$index] == self::QUOTE_DOUBLE) {
+                    if ((($index + 2) <= $formulaLength) && ($this->formula[$index + 1] == self::QUOTE_DOUBLE)) {
                         $value .= self::QUOTE_DOUBLE;
                         ++$index;
                     } else {
@@ -187,7 +189,7 @@ class FormulaParser
                         $value = '';
                     }
                 } else {
-                    $value .= $this->formula{$index};
+                    $value .= $this->formula[$index];
                 }
                 ++$index;
                 continue;
@@ -197,15 +199,15 @@ class FormulaParser
             // embeds are double
             // end does not mark a token
             if ($inPath) {
-                if ($this->formula{$index} == self::QUOTE_SINGLE) {
-                    if ((($index + 2) <= $formulaLength) && ($this->formula{$index + 1} == self::QUOTE_SINGLE)) {
+                if ($this->formula[$index] == self::QUOTE_SINGLE) {
+                    if ((($index + 2) <= $formulaLength) && ($this->formula[$index + 1] == self::QUOTE_SINGLE)) {
                         $value .= self::QUOTE_SINGLE;
                         ++$index;
                     } else {
                         $inPath = false;
                     }
                 } else {
-                    $value .= $this->formula{$index};
+                    $value .= $this->formula[$index];
                 }
                 ++$index;
                 continue;
@@ -215,10 +217,10 @@ class FormulaParser
             // no embeds (changed to "()" by Excel)
             // end does not mark a token
             if ($inRange) {
-                if ($this->formula{$index} == self::BRACKET_CLOSE) {
+                if ($this->formula[$index] == self::BRACKET_CLOSE) {
                     $inRange = false;
                 }
-                $value .= $this->formula{$index};
+                $value .= $this->formula[$index];
                 ++$index;
                 continue;
             }
@@ -226,7 +228,7 @@ class FormulaParser
             // error values
             // end marks a token, determined from absolute list of values
             if ($inError) {
-                $value .= $this->formula{$index};
+                $value .= $this->formula[$index];
                 ++$index;
                 if (in_array($value, $ERRORS)) {
                     $inError = false;
@@ -237,10 +239,10 @@ class FormulaParser
             }
 
             // scientific notation check
-            if (strpos(self::OPERATORS_SN, $this->formula{$index}) !== false) {
+            if (strpos(self::OPERATORS_SN, $this->formula[$index]) !== false) {
                 if (strlen($value) > 1) {
-                    if (preg_match("/^[1-9]{1}(\.[0-9]+)?E{1}$/", $this->formula{$index}) != 0) {
-                        $value .= $this->formula{$index};
+                    if (preg_match("/^[1-9]{1}(\.[0-9]+)?E{1}$/", $this->formula[$index]) != 0) {
+                        $value .= $this->formula[$index];
                         ++$index;
                         continue;
                     }
@@ -250,7 +252,7 @@ class FormulaParser
             // independent character evaluation (order not important)
 
             // establish state-dependent character evaluations
-            if ($this->formula{$index} == self::QUOTE_DOUBLE) {
+            if ($this->formula[$index] == self::QUOTE_DOUBLE) {
                 if (strlen($value > 0)) {
                     // unexpected
                     $tokens1[] = new FormulaToken($value, FormulaToken::TOKEN_TYPE_UNKNOWN);
@@ -261,7 +263,7 @@ class FormulaParser
                 continue;
             }
 
-            if ($this->formula{$index} == self::QUOTE_SINGLE) {
+            if ($this->formula[$index] == self::QUOTE_SINGLE) {
                 if (strlen($value) > 0) {
                     // unexpected
                     $tokens1[] = new FormulaToken($value, FormulaToken::TOKEN_TYPE_UNKNOWN);
@@ -272,14 +274,14 @@ class FormulaParser
                 continue;
             }
 
-            if ($this->formula{$index} == self::BRACKET_OPEN) {
+            if ($this->formula[$index] == self::BRACKET_OPEN) {
                 $inRange = true;
                 $value .= self::BRACKET_OPEN;
                 ++$index;
                 continue;
             }
 
-            if ($this->formula{$index} == self::ERROR_START) {
+            if ($this->formula[$index] == self::ERROR_START) {
                 if (strlen($value) > 0) {
                     // unexpected
                     $tokens1[] = new FormulaToken($value, FormulaToken::TOKEN_TYPE_UNKNOWN);
@@ -292,7 +294,7 @@ class FormulaParser
             }
 
             // mark start and end of arrays and array rows
-            if ($this->formula{$index} == self::BRACE_OPEN) {
+            if ($this->formula[$index] == self::BRACE_OPEN) {
                 if (strlen($value) > 0) {
                     // unexpected
                     $tokens1[] = new FormulaToken($value, FormulaToken::TOKEN_TYPE_UNKNOWN);
@@ -311,7 +313,7 @@ class FormulaParser
                 continue;
             }
 
-            if ($this->formula{$index} == self::SEMICOLON) {
+            if ($this->formula[$index] == self::SEMICOLON) {
                 if (strlen($value) > 0) {
                     $tokens1[] = new FormulaToken($value, FormulaToken::TOKEN_TYPE_OPERAND);
                     $value = '';
@@ -333,7 +335,7 @@ class FormulaParser
                 continue;
             }
 
-            if ($this->formula{$index} == self::BRACE_CLOSE) {
+            if ($this->formula[$index] == self::BRACE_CLOSE) {
                 if (strlen($value) > 0) {
                     $tokens1[] = new FormulaToken($value, FormulaToken::TOKEN_TYPE_OPERAND);
                     $value = '';
@@ -354,14 +356,14 @@ class FormulaParser
             }
 
             // trim white-space
-            if ($this->formula{$index} == self::WHITESPACE) {
+            if ($this->formula[$index] == self::WHITESPACE) {
                 if (strlen($value) > 0) {
                     $tokens1[] = new FormulaToken($value, FormulaToken::TOKEN_TYPE_OPERAND);
                     $value = '';
                 }
                 $tokens1[] = new FormulaToken('', FormulaToken::TOKEN_TYPE_WHITESPACE);
                 ++$index;
-                while (($this->formula{$index} == self::WHITESPACE) && ($index < $formulaLength)) {
+                while (($this->formula[$index] == self::WHITESPACE) && ($index < $formulaLength)) {
                     ++$index;
                 }
                 continue;
@@ -381,29 +383,29 @@ class FormulaParser
             }
 
             // standard infix operators
-            if (strpos(self::OPERATORS_INFIX, $this->formula{$index}) !== false) {
+            if (strpos(self::OPERATORS_INFIX, $this->formula[$index]) !== false) {
                 if (strlen($value) > 0) {
                     $tokens1[] = new FormulaToken($value, FormulaToken::TOKEN_TYPE_OPERAND);
                     $value = '';
                 }
-                $tokens1[] = new FormulaToken($this->formula{$index}, FormulaToken::TOKEN_TYPE_OPERATORINFIX);
+                $tokens1[] = new FormulaToken($this->formula[$index], FormulaToken::TOKEN_TYPE_OPERATORINFIX);
                 ++$index;
                 continue;
             }
 
             // standard postfix operators (only one)
-            if (strpos(self::OPERATORS_POSTFIX, $this->formula{$index}) !== false) {
+            if (strpos(self::OPERATORS_POSTFIX, $this->formula[$index]) !== false) {
                 if (strlen($value) > 0) {
                     $tokens1[] = new FormulaToken($value, FormulaToken::TOKEN_TYPE_OPERAND);
                     $value = '';
                 }
-                $tokens1[] = new FormulaToken($this->formula{$index}, FormulaToken::TOKEN_TYPE_OPERATORPOSTFIX);
+                $tokens1[] = new FormulaToken($this->formula[$index], FormulaToken::TOKEN_TYPE_OPERATORPOSTFIX);
                 ++$index;
                 continue;
             }
 
             // start subexpression or function
-            if ($this->formula{$index} == self::PAREN_OPEN) {
+            if ($this->formula[$index] == self::PAREN_OPEN) {
                 if (strlen($value) > 0) {
                     $tmp = new FormulaToken($value, FormulaToken::TOKEN_TYPE_FUNCTION, FormulaToken::TOKEN_SUBTYPE_START);
                     $tokens1[] = $tmp;
@@ -419,7 +421,7 @@ class FormulaParser
             }
 
             // function, subexpression, or array parameters, or operand unions
-            if ($this->formula{$index} == self::COMMA) {
+            if ($this->formula[$index] == self::COMMA) {
                 if (strlen($value) > 0) {
                     $tokens1[] = new FormulaToken($value, FormulaToken::TOKEN_TYPE_OPERAND);
                     $value = '';
@@ -440,7 +442,7 @@ class FormulaParser
             }
 
             // stop subexpression
-            if ($this->formula{$index} == self::PAREN_CLOSE) {
+            if ($this->formula[$index] == self::PAREN_CLOSE) {
                 if (strlen($value) > 0) {
                     $tokens1[] = new FormulaToken($value, FormulaToken::TOKEN_TYPE_OPERAND);
                     $value = '';
@@ -456,7 +458,7 @@ class FormulaParser
             }
 
             // token accumulation
-            $value .= $this->formula{$index};
+            $value .= $this->formula[$index];
             ++$index;
         }
 

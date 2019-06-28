@@ -10,31 +10,31 @@ namespace PhpOffice\PhpSpreadsheet\RichText;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- * @version    ##VERSION##, ##DATE##
  */
 class Run extends TextElement implements ITextElement
 {
     /**
-     * Font
+     * Font.
      *
      * @var \PhpOffice\PhpSpreadsheet\Style\Font
      */
     private $font;
 
     /**
-     * Create a new Run instance
+     * Create a new Run instance.
      *
-     * @param     string        $pText        Text
+     * @param string $pText Text
      */
     public function __construct($pText = '')
     {
@@ -44,7 +44,7 @@ class Run extends TextElement implements ITextElement
     }
 
     /**
-     * Get font
+     * Get font.
      *
      * @return \PhpOffice\PhpSpreadsheet\Style\Font
      */
@@ -54,11 +54,13 @@ class Run extends TextElement implements ITextElement
     }
 
     /**
-     * Set font
+     * Set font.
      *
-     * @param   \PhpOffice\PhpSpreadsheet\Style\Font        $pFont        Font
-     * @throws  \PhpOffice\PhpSpreadsheet\Exception
-     * @return  ITextElement
+     * @param \PhpOffice\PhpSpreadsheet\Style\Font $pFont Font
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     *
+     * @return ITextElement
      */
     public function setFont(\PhpOffice\PhpSpreadsheet\Style\Font $pFont = null)
     {
@@ -68,9 +70,9 @@ class Run extends TextElement implements ITextElement
     }
 
     /**
-     * Get hash code
+     * Get hash code.
      *
-     * @return string    Hash code
+     * @return string Hash code
      */
     public function getHashCode()
     {

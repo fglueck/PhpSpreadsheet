@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -12,57 +12,57 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- * @version    ##VERSION##, ##DATE##
  */
 class Row
 {
     /**
-     * \PhpOffice\PhpSpreadsheet\Worksheet
+     * \PhpOffice\PhpSpreadsheet\Worksheet.
      *
      * @var \PhpOffice\PhpSpreadsheet\Worksheet
      */
-    private $parent;
+    private $worksheet;
 
     /**
-     * Row index
+     * Row index.
      *
      * @var int
      */
     private $rowIndex = 0;
 
     /**
-     * Create a new row
+     * Create a new row.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet         $parent
-     * @param int                        $rowIndex
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $parent
+     * @param int $rowIndex
      */
-    public function __construct(\PhpOffice\PhpSpreadsheet\Worksheet $parent = null, $rowIndex = 1)
+    public function __construct(\PhpOffice\PhpSpreadsheet\Worksheet $worksheet = null, $rowIndex = 1)
     {
         // Set parent and row index
-        $this->parent = $parent;
+        $this->worksheet = $worksheet;
         $this->rowIndex = $rowIndex;
     }
 
     /**
-     * Destructor
+     * Destructor.
      */
     public function __destruct()
     {
-        unset($this->parent);
+        unset($this->worksheet);
     }
 
     /**
-     * Get row index
+     * Get row index.
      *
      * @return int
      */
@@ -72,14 +72,25 @@ class Row
     }
 
     /**
-     * Get cell iterator
+     * Get cell iterator.
      *
-     * @param    string                $startColumn    The column address at which to start iterating
-     * @param    string                $endColumn        Optionally, the column address at which to stop iterating
+     * @param string $startColumn The column address at which to start iterating
+     * @param string $endColumn Optionally, the column address at which to stop iterating
+     *
      * @return RowCellIterator
      */
     public function getCellIterator($startColumn = 'A', $endColumn = null)
     {
-        return new RowCellIterator($this->parent, $this->rowIndex, $startColumn, $endColumn);
+        return new RowCellIterator($this->worksheet, $this->rowIndex, $startColumn, $endColumn);
+    }
+
+    /**
+     * Returns bound worksheet.
+     *
+     * @return Worksheet
+     */
+    public function getWorksheet()
+    {
+        return $this->worksheet;
     }
 }

@@ -2,10 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Chart\Renderer;
 
-require_once \PhpOffice\PhpSpreadsheet\Settings::getChartRendererPath() . '/jpgraph.php';
-
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -14,17 +12,17 @@ require_once \PhpOffice\PhpSpreadsheet\Settings::getChartRendererPath() . '/jpgr
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category    PhpSpreadsheet
+ *
  * @copyright    Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license        http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- * @version        ##VERSION##, ##DATE##
  */
 class JpGraph
 {
@@ -833,7 +831,7 @@ class JpGraph
                 $this->renderContourChart($groupCount, $dimensions);
                 break;
             case 'stockChart':
-                $this->renderStockChart($groupCount, $dimensions);
+                $this->renderStockChart($groupCount);
                 break;
             default:
                 echo $chartType . ' is not yet implemented<br />';
@@ -848,11 +846,13 @@ class JpGraph
     }
 
     /**
-     * Create a new jpgraph
+     * Create a new jpgraph.
      */
     public function __construct(\PhpOffice\PhpSpreadsheet\Chart $chart)
     {
         $this->graph = null;
         $this->chart = $chart;
+
+        require_once \PhpOffice\PhpSpreadsheet\Settings::getChartRendererPath() . '/jpgraph.php';
     }
 }

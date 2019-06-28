@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -12,17 +12,17 @@ namespace PhpOffice\PhpSpreadsheet\Cell;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- * @version    ##VERSION##, ##DATE##
  */
 class DataType
 {
@@ -37,7 +37,7 @@ class DataType
     const TYPE_ERROR = 'e';
 
     /**
-     * List of error codes
+     * List of error codes.
      *
      * @var array
      */
@@ -52,7 +52,7 @@ class DataType
     ];
 
     /**
-     * Get list of error codes
+     * Get list of error codes.
      *
      * @return array
      */
@@ -62,22 +62,12 @@ class DataType
     }
 
     /**
-     * DataType for value
+     * Check a string that it satisfies Excel requirements.
      *
-     * @deprecated  Replaced by \PhpOffice\PhpSpreadsheet\Cell\IValueBinder infrastructure, will be removed in version 1.8.0
-     * @param       mixed  $pValue
-     * @return      string
-     */
-    public static function dataTypeForValue($pValue = null)
-    {
-        return DefaultValueBinder::dataTypeForValue($pValue);
-    }
-
-    /**
-     * Check a string that it satisfies Excel requirements
+     * @param mixed Value to sanitize to an Excel string
+     * @param null|mixed $pValue
      *
-     * @param  mixed  Value to sanitize to an Excel string
-     * @return mixed  Sanitized value
+     * @return mixed Sanitized value
      */
     public static function checkString($pValue = null)
     {
@@ -96,16 +86,18 @@ class DataType
     }
 
     /**
-     * Check a value that it is a valid error code
+     * Check a value that it is a valid error code.
      *
-     * @param  mixed   Value to sanitize to an Excel error code
-     * @return string  Sanitized value
+     * @param mixed Value to sanitize to an Excel error code
+     * @param null|mixed $pValue
+     *
+     * @return string Sanitized value
      */
     public static function checkErrorCode($pValue = null)
     {
         $pValue = (string) $pValue;
 
-        if (!array_key_exists($pValue, self::$errorCodes)) {
+        if (!isset(self::$errorCodes[$pValue])) {
             $pValue = '#NULL!';
         }
 

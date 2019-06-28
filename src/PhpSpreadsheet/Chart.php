@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -12,155 +12,159 @@ namespace PhpOffice\PhpSpreadsheet;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category    PhpSpreadsheet
+ *
  * @copyright   Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- * @version     ##VERSION##, ##DATE##
  */
 class Chart
 {
     /**
-     * Chart Name
+     * Chart Name.
      *
      * @var string
      */
     private $name = '';
 
     /**
-     * Worksheet
+     * Worksheet.
      *
      * @var Worksheet
      */
     private $worksheet;
 
     /**
-     * Chart Title
+     * Chart Title.
      *
      * @var Chart\Title
      */
     private $title;
 
     /**
-     * Chart Legend
+     * Chart Legend.
      *
      * @var Chart\Legend
      */
     private $legend;
 
     /**
-     * X-Axis Label
+     * X-Axis Label.
      *
      * @var Chart\Title
      */
     private $xAxisLabel;
 
     /**
-     * Y-Axis Label
+     * Y-Axis Label.
      *
      * @var Chart\Title
      */
     private $yAxisLabel;
 
     /**
-     * Chart Plot Area
+     * Chart Plot Area.
      *
      * @var Chart\PlotArea
      */
     private $plotArea;
 
     /**
-     * Plot Visible Only
+     * Plot Visible Only.
      *
      * @var bool
      */
     private $plotVisibleOnly = true;
 
     /**
-     * Display Blanks as
+     * Display Blanks as.
      *
      * @var string
      */
     private $displayBlanksAs = '0';
 
     /**
-     * Chart Asix Y as
+     * Chart Asix Y as.
      *
      * @var Chart\Axis
      */
     private $yAxis;
 
     /**
-     * Chart Asix X as
+     * Chart Asix X as.
      *
      * @var Chart\Axis
      */
     private $xAxis;
 
     /**
-     * Chart Major Gridlines as
+     * Chart Major Gridlines as.
      *
      * @var Chart\GridLines
      */
     private $majorGridlines;
 
     /**
-     * Chart Minor Gridlines as
+     * Chart Minor Gridlines as.
      *
      * @var Chart\GridLines
      */
     private $minorGridlines;
 
     /**
-     * Top-Left Cell Position
+     * Top-Left Cell Position.
      *
      * @var string
      */
     private $topLeftCellRef = 'A1';
 
     /**
-     * Top-Left X-Offset
+     * Top-Left X-Offset.
      *
      * @var int
      */
     private $topLeftXOffset = 0;
 
     /**
-     * Top-Left Y-Offset
+     * Top-Left Y-Offset.
      *
      * @var int
      */
     private $topLeftYOffset = 0;
 
     /**
-     * Bottom-Right Cell Position
+     * Bottom-Right Cell Position.
      *
      * @var string
      */
     private $bottomRightCellRef = 'A1';
 
     /**
-     * Bottom-Right X-Offset
+     * Bottom-Right X-Offset.
      *
      * @var int
      */
     private $bottomRightXOffset = 10;
 
     /**
-     * Bottom-Right Y-Offset
+     * Bottom-Right Y-Offset.
      *
      * @var int
      */
     private $bottomRightYOffset = 10;
 
     /**
-     * Create a new Chart
+     * Create a new Chart.
+     *
+     * @param mixed $name
+     * @param mixed $plotVisibleOnly
+     * @param mixed $displayBlanksAs
      */
     public function __construct($name, Chart\Title $title = null, Chart\Legend $legend = null, Chart\PlotArea $plotArea = null, $plotVisibleOnly = true, $displayBlanksAs = '0', Chart\Title $xAxisLabel = null, Chart\Title $yAxisLabel = null, Chart\Axis $xAxis = null, Chart\Axis $yAxis = null, Chart\GridLines $majorGridlines = null, Chart\GridLines $minorGridlines = null)
     {
@@ -179,7 +183,7 @@ class Chart
     }
 
     /**
-     * Get Name
+     * Get Name.
      *
      * @return string
      */
@@ -189,7 +193,7 @@ class Chart
     }
 
     /**
-     * Get Worksheet
+     * Get Worksheet.
      *
      * @return Worksheet
      */
@@ -199,11 +203,13 @@ class Chart
     }
 
     /**
-     * Set Worksheet
+     * Set Worksheet.
      *
-     * @param    Worksheet    $pValue
-     * @throws   Chart\Exception
-     * @return   Chart
+     * @param Worksheet $pValue
+     *
+     * @throws Chart\Exception
+     *
+     * @return Chart
      */
     public function setWorksheet(Worksheet $pValue = null)
     {
@@ -213,7 +219,7 @@ class Chart
     }
 
     /**
-     * Get Title
+     * Get Title.
      *
      * @return Chart\Title
      */
@@ -223,10 +229,11 @@ class Chart
     }
 
     /**
-     * Set Title
+     * Set Title.
      *
-     * @param    Chart\Title $title
-     * @return   Chart
+     * @param Chart\Title $title
+     *
+     * @return Chart
      */
     public function setTitle(Chart\Title $title)
     {
@@ -236,7 +243,7 @@ class Chart
     }
 
     /**
-     * Get Legend
+     * Get Legend.
      *
      * @return Chart\Legend
      */
@@ -246,10 +253,11 @@ class Chart
     }
 
     /**
-     * Set Legend
+     * Set Legend.
      *
-     * @param    Chart\Legend $legend
-     * @return   Chart
+     * @param Chart\Legend $legend
+     *
+     * @return Chart
      */
     public function setLegend(Chart\Legend $legend)
     {
@@ -259,7 +267,7 @@ class Chart
     }
 
     /**
-     * Get X-Axis Label
+     * Get X-Axis Label.
      *
      * @return Chart\Title
      */
@@ -269,10 +277,11 @@ class Chart
     }
 
     /**
-     * Set X-Axis Label
+     * Set X-Axis Label.
      *
-     * @param    Chart\Title $label
-     * @return   Chart
+     * @param Chart\Title $label
+     *
+     * @return Chart
      */
     public function setXAxisLabel(Chart\Title $label)
     {
@@ -282,7 +291,7 @@ class Chart
     }
 
     /**
-     * Get Y-Axis Label
+     * Get Y-Axis Label.
      *
      * @return Chart\Title
      */
@@ -292,10 +301,11 @@ class Chart
     }
 
     /**
-     * Set Y-Axis Label
+     * Set Y-Axis Label.
      *
-     * @param    Chart\Title $label
-     * @return   Chart
+     * @param Chart\Title $label
+     *
+     * @return Chart
      */
     public function setYAxisLabel(Chart\Title $label)
     {
@@ -305,7 +315,7 @@ class Chart
     }
 
     /**
-     * Get Plot Area
+     * Get Plot Area.
      *
      * @return Chart\PlotArea
      */
@@ -315,7 +325,7 @@ class Chart
     }
 
     /**
-     * Get Plot Visible Only
+     * Get Plot Visible Only.
      *
      * @return bool
      */
@@ -325,9 +335,10 @@ class Chart
     }
 
     /**
-     * Set Plot Visible Only
+     * Set Plot Visible Only.
      *
      * @param bool $plotVisibleOnly
+     *
      * @return Chart
      */
     public function setPlotVisibleOnly($plotVisibleOnly = true)
@@ -338,7 +349,7 @@ class Chart
     }
 
     /**
-     * Get Display Blanks as
+     * Get Display Blanks as.
      *
      * @return string
      */
@@ -348,9 +359,10 @@ class Chart
     }
 
     /**
-     * Set Display Blanks as
+     * Set Display Blanks as.
      *
      * @param string $displayBlanksAs
+     *
      * @return Chart
      */
     public function setDisplayBlanksAs($displayBlanksAs = '0')
@@ -359,7 +371,7 @@ class Chart
     }
 
     /**
-     * Get yAxis
+     * Get yAxis.
      *
      * @return Chart\Axis
      */
@@ -373,7 +385,7 @@ class Chart
     }
 
     /**
-     * Get xAxis
+     * Get xAxis.
      *
      * @return Chart\Axis
      */
@@ -387,7 +399,7 @@ class Chart
     }
 
     /**
-     * Get Major Gridlines
+     * Get Major Gridlines.
      *
      * @return Chart\GridLines
      */
@@ -401,7 +413,7 @@ class Chart
     }
 
     /**
-     * Get Minor Gridlines
+     * Get Minor Gridlines.
      *
      * @return Chart\GridLines
      */
@@ -415,11 +427,12 @@ class Chart
     }
 
     /**
-     * Set the Top Left position for the chart
+     * Set the Top Left position for the chart.
      *
-     * @param    string    $cell
-     * @param    int    $xOffset
-     * @param    int    $yOffset
+     * @param string $cell
+     * @param int $xOffset
+     * @param int $yOffset
+     *
      * @return Chart
      */
     public function setTopLeftPosition($cell, $xOffset = null, $yOffset = null)
@@ -436,9 +449,9 @@ class Chart
     }
 
     /**
-     * Get the top left position of the chart
+     * Get the top left position of the chart.
      *
-     * @return array    an associative array containing the cell address, X-Offset and Y-Offset from the top left of that cell
+     * @return array an associative array containing the cell address, X-Offset and Y-Offset from the top left of that cell
      */
     public function getTopLeftPosition()
     {
@@ -450,7 +463,7 @@ class Chart
     }
 
     /**
-     * Get the cell address where the top left of the chart is fixed
+     * Get the cell address where the top left of the chart is fixed.
      *
      * @return string
      */
@@ -460,9 +473,10 @@ class Chart
     }
 
     /**
-     * Set the Top Left cell position for the chart
+     * Set the Top Left cell position for the chart.
      *
-     * @param    string    $cell
+     * @param string $cell
+     *
      * @return Chart
      */
     public function setTopLeftCell($cell)
@@ -473,10 +487,11 @@ class Chart
     }
 
     /**
-     * Set the offset position within the Top Left cell for the chart
+     * Set the offset position within the Top Left cell for the chart.
      *
-     * @param    int    $xOffset
-     * @param    int    $yOffset
+     * @param int $xOffset
+     * @param int $yOffset
+     *
      * @return Chart
      */
     public function setTopLeftOffset($xOffset = null, $yOffset = null)
@@ -492,7 +507,7 @@ class Chart
     }
 
     /**
-     * Get the offset position within the Top Left cell for the chart
+     * Get the offset position within the Top Left cell for the chart.
      *
      * @return int[]
      */
@@ -529,11 +544,12 @@ class Chart
     }
 
     /**
-     * Set the Bottom Right position of the chart
+     * Set the Bottom Right position of the chart.
      *
-     * @param    string    $cell
-     * @param    int    $xOffset
-     * @param    int    $yOffset
+     * @param string $cell
+     * @param int $xOffset
+     * @param int $yOffset
+     *
      * @return Chart
      */
     public function setBottomRightPosition($cell, $xOffset = null, $yOffset = null)
@@ -550,9 +566,9 @@ class Chart
     }
 
     /**
-     * Get the bottom right position of the chart
+     * Get the bottom right position of the chart.
      *
-     * @return array    an associative array containing the cell address, X-Offset and Y-Offset from the top left of that cell
+     * @return array an associative array containing the cell address, X-Offset and Y-Offset from the top left of that cell
      */
     public function getBottomRightPosition()
     {
@@ -571,7 +587,7 @@ class Chart
     }
 
     /**
-     * Get the cell address where the bottom right of the chart is fixed
+     * Get the cell address where the bottom right of the chart is fixed.
      *
      * @return string
      */
@@ -581,10 +597,11 @@ class Chart
     }
 
     /**
-     * Set the offset position within the Bottom Right cell for the chart
+     * Set the offset position within the Bottom Right cell for the chart.
      *
-     * @param    int    $xOffset
-     * @param    int    $yOffset
+     * @param int $xOffset
+     * @param int $yOffset
+     *
      * @return Chart
      */
     public function setBottomRightOffset($xOffset = null, $yOffset = null)
@@ -600,7 +617,7 @@ class Chart
     }
 
     /**
-     * Get the offset position within the Bottom Right cell for the chart
+     * Get the offset position within the Bottom Right cell for the chart.
      *
      * @return int[]
      */

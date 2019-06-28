@@ -8,6 +8,8 @@ class SampleTest extends \PHPUnit_Framework_TestCase
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider providerSample
+     *
+     * @param mixed $sample
      */
     public function testSample($sample)
     {
@@ -21,9 +23,10 @@ class SampleTest extends \PHPUnit_Framework_TestCase
     public function providerSample()
     {
         $skipped = [
-            '07 Reader PCLZip', // Excel2007 cannot load file, leading to OpenOffice trying to and crashing. This is a bug that should be fixed
-            '20 Read OOCalc with PCLZip', // Crash: Call to undefined method \PhpOffice\PhpSpreadsheet\Shared\ZipArchive::statName()
+            '07 Reader PCLZip', // Xlsx cannot load file, leading to OpenOffice trying to and crashing. This is a bug that should be fixed
+            '20 Read Ods with PCLZip', // Crash: Call to undefined method \PhpOffice\PhpSpreadsheet\Shared\ZipArchive::statName()
             '21 Pdf', // for now we don't have 3rdparty libs to tests PDF, but it should be added
+            '06 Largescale with cellcaching sqlite3', // Travis started crashing after they upgraded from PHP 7.0.13 to 7.0.14, so we disable it for now
         ];
 
         // Unfortunately some tests are too long be ran with code-coverage
@@ -33,7 +36,6 @@ class SampleTest extends \PHPUnit_Framework_TestCase
             $tooLongToBeCovered = [
                 '06 Largescale',
                 '06 Largescale with cellcaching',
-                '06 Largescale with cellcaching sqlite',
                 '06 Largescale with cellcaching sqlite3',
                 '13 CalculationCyclicFormulae',
             ];

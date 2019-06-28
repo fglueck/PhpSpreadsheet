@@ -11,14 +11,6 @@ class DefaultValueBinderTest extends \PHPUnit_Framework_TestCase
 {
     protected $cellStub;
 
-    public function setUp()
-    {
-        if (!defined('PHPSPREADSHEET_ROOT')) {
-            define('PHPSPREADSHEET_ROOT', APPLICATION_PATH . '/');
-        }
-        require_once PHPSPREADSHEET_ROOT . '/Bootstrap.php';
-    }
-
     protected function createCellStub()
     {
         // Create a stub for the Cell class.
@@ -27,12 +19,14 @@ class DefaultValueBinderTest extends \PHPUnit_Framework_TestCase
             ->getMock();
         // Configure the stub.
         $this->cellStub->expects($this->any())
-             ->method('setValueExplicit')
-             ->will($this->returnValue(true));
+            ->method('setValueExplicit')
+            ->will($this->returnValue(true));
     }
 
     /**
      * @dataProvider binderProvider
+     *
+     * @param mixed $value
      */
     public function testBindValue($value)
     {
@@ -62,11 +56,12 @@ class DefaultValueBinderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerDataTypeForValue
+     *
+     * @param mixed $expectedResult
      */
-    public function testDataTypeForValue()
+    public function testDataTypeForValue($expectedResult, ...$args)
     {
-        list($args, $expectedResult) = func_get_args();
-        $result = call_user_func_array([DefaultValueBinder::class, 'dataTypeForValue'], $args);
+        $result = DefaultValueBinder::dataTypeForValue(...$args);
         $this->assertEquals($expectedResult, $result);
     }
 

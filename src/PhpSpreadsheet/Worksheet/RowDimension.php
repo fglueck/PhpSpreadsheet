@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -12,29 +12,29 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- * @version    ##VERSION##, ##DATE##
  */
 class RowDimension extends Dimension
 {
     /**
-     * Row index
+     * Row index.
      *
      * @var int
      */
     private $rowIndex;
 
     /**
-     * Row height (in pt)
+     * Row height (in pt).
      *
      * When this is set to a negative value, the row height should be ignored by IWriter
      *
@@ -50,7 +50,7 @@ class RowDimension extends Dimension
     private $zeroHeight = false;
 
     /**
-     * Create a new RowDimension
+     * Create a new RowDimension.
      *
      * @param int $pIndex Numeric row index
      */
@@ -64,7 +64,7 @@ class RowDimension extends Dimension
     }
 
     /**
-     * Get Row Index
+     * Get Row Index.
      *
      * @return int
      */
@@ -74,9 +74,10 @@ class RowDimension extends Dimension
     }
 
     /**
-     * Set Row Index
+     * Set Row Index.
      *
      * @param int $pValue
+     *
      * @return RowDimension
      */
     public function setRowIndex($pValue)
@@ -87,7 +88,7 @@ class RowDimension extends Dimension
     }
 
     /**
-     * Get Row Height
+     * Get Row Height.
      *
      * @return float
      */
@@ -97,9 +98,10 @@ class RowDimension extends Dimension
     }
 
     /**
-     * Set Row Height
+     * Set Row Height.
      *
      * @param float $pValue
+     *
      * @return RowDimension
      */
     public function setRowHeight($pValue = -1)
@@ -110,7 +112,7 @@ class RowDimension extends Dimension
     }
 
     /**
-     * Get ZeroHeight
+     * Get ZeroHeight.
      *
      * @return bool
      */
@@ -120,9 +122,10 @@ class RowDimension extends Dimension
     }
 
     /**
-     * Set ZeroHeight
+     * Set ZeroHeight.
      *
      * @param bool $pValue
+     *
      * @return RowDimension
      */
     public function setZeroHeight($pValue = false)

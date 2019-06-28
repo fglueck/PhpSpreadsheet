@@ -11,7 +11,7 @@ if (!defined('DEBUGMODE_ENABLED')) {
 }
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,17 +20,17 @@ if (!defined('DEBUGMODE_ENABLED')) {
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- * @version    ##VERSION##, ##DATE##
  */
 class XMLWriter extends \XMLWriter
 {
@@ -39,17 +39,17 @@ class XMLWriter extends \XMLWriter
     const STORAGE_DISK = 2;
 
     /**
-     * Temporary filename
+     * Temporary filename.
      *
      * @var string
      */
     private $tempFileName = '';
 
     /**
-     * Create a new XMLWriter instance
+     * Create a new XMLWriter instance.
      *
-     * @param int      $pTemporaryStorage        Temporary storage location
-     * @param string   $pTemporaryStorageFolder  Temporary storage folder
+     * @param int $pTemporaryStorage Temporary storage location
+     * @param string $pTemporaryStorageFolder Temporary storage folder
      */
     public function __construct($pTemporaryStorage = self::STORAGE_MEMORY, $pTemporaryStorageFolder = null)
     {
@@ -77,7 +77,7 @@ class XMLWriter extends \XMLWriter
     }
 
     /**
-     * Destructor
+     * Destructor.
      */
     public function __destruct()
     {
@@ -88,7 +88,7 @@ class XMLWriter extends \XMLWriter
     }
 
     /**
-     * Get written data
+     * Get written data.
      *
      * @return $data
      */
@@ -96,17 +96,17 @@ class XMLWriter extends \XMLWriter
     {
         if ($this->tempFileName == '') {
             return $this->outputMemory(true);
-        } else {
-            $this->flush();
-
-            return file_get_contents($this->tempFileName);
         }
+        $this->flush();
+
+        return file_get_contents($this->tempFileName);
     }
 
     /**
-     * Fallback method for writeRaw, introduced in PHP 5.2
+     * Wrapper method for writeRaw.
      *
-     * @param string $text
+     * @param string|string[] $text
+     *
      * @return bool
      */
     public function writeRawData($text)
@@ -115,10 +115,6 @@ class XMLWriter extends \XMLWriter
             $text = implode("\n", $text);
         }
 
-        if (method_exists($this, 'writeRaw')) {
-            return $this->writeRaw(htmlspecialchars($text));
-        }
-
-        return $this->text($text);
+        return $this->writeRaw(htmlspecialchars($text));
     }
 }

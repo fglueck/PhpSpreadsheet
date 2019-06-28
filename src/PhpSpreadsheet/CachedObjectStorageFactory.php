@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -12,17 +12,17 @@ namespace PhpOffice\PhpSpreadsheet;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- * @version    ##VERSION##, ##DATE##
  */
 class CachedObjectStorageFactory
 {
@@ -35,25 +35,24 @@ class CachedObjectStorageFactory
     const CACHE_TO_MEMCACHE = 'Memcache';
     const CACHE_TO_PHPTEMP = 'PHPTemp';
     const CACHE_TO_WINCACHE = 'Wincache';
-    const CACHE_TO_SQLITE = 'SQLite';
     const CACHE_TO_SQLITE3 = 'SQLite3';
 
     /**
-     * Name of the method used for cell cacheing
+     * Name of the method used for cell cacheing.
      *
      * @var string
      */
     private static $cacheStorageMethod;
 
     /**
-     * Name of the class used for cell cacheing
+     * Name of the class used for cell cacheing.
      *
      * @var string
      */
     private static $cacheStorageClass;
 
     /**
-     * List of all possible cache storage methods
+     * List of all possible cache storage methods.
      *
      * @var string[]
      */
@@ -67,12 +66,11 @@ class CachedObjectStorageFactory
         self::CACHE_TO_APC,
         self::CACHE_TO_MEMCACHE,
         self::CACHE_TO_WINCACHE,
-        self::CACHE_TO_SQLITE,
         self::CACHE_TO_SQLITE3,
     ];
 
     /**
-     * Default arguments for each cache storage method
+     * Default arguments for each cache storage method.
      *
      * @var array of mixed array
      */
@@ -98,19 +96,18 @@ class CachedObjectStorageFactory
         self::CACHE_TO_WINCACHE => [
             'cacheTime' => 600,
         ],
-        self::CACHE_TO_SQLITE => [],
         self::CACHE_TO_SQLITE3 => [],
     ];
 
     /**
-     * Arguments for the active cache storage method
+     * Arguments for the active cache storage method.
      *
      * @var mixed[]
      */
     private static $storageMethodParameters = [];
 
     /**
-     * Return the current cache storage method
+     * Return the current cache storage method.
      *
      * @return string|null
      **/
@@ -120,7 +117,7 @@ class CachedObjectStorageFactory
     }
 
     /**
-     * Return the current cache storage class
+     * Return the current cache storage class.
      *
      * @return string
      **/
@@ -130,7 +127,7 @@ class CachedObjectStorageFactory
     }
 
     /**
-     * Return the list of all possible cache storage methods
+     * Return the list of all possible cache storage methods.
      *
      * @return string[]
      **/
@@ -140,7 +137,7 @@ class CachedObjectStorageFactory
     }
 
     /**
-     * Return the list of all available cache storage methods
+     * Return the list of all available cache storage methods.
      *
      * @return string[]
      **/
@@ -158,11 +155,12 @@ class CachedObjectStorageFactory
     }
 
     /**
-     * Identify the cache storage method to use
+     * Identify the cache storage method to use.
      *
-     * @param    string     $method       Name of the method to use for cell cacheing
-     * @param    mixed[]    $arguments    Additional arguments to pass to the cell caching class
+     * @param string $method Name of the method to use for cell cacheing
+     * @param mixed[] $arguments Additional arguments to pass to the cell caching class
      *                                        when instantiating
+     *
      * @return bool
      **/
     public static function initialize($method = self::CACHE_IN_MEMORY, $arguments = [])
@@ -178,7 +176,7 @@ class CachedObjectStorageFactory
 
         self::$storageMethodParameters[$method] = self::$storageMethodDefaultParameters[$method];
         foreach ($arguments as $argument => $value) {
-            if (array_key_exists($argument, self::$storageMethodParameters[$method])) {
+            if (isset(self::$storageMethodParameters[$method][$argument])) {
                 self::$storageMethodParameters[$method][$argument] = $value;
             }
         }
@@ -192,10 +190,11 @@ class CachedObjectStorageFactory
     }
 
     /**
-     * Initialise the cache storage
+     * Initialise the cache storage.
      *
-     * @param    Worksheet     $parent    Enable cell caching for this worksheet
-     * @return   CachedObjectStorage\ICache
+     * @param Worksheet $parent Enable cell caching for this worksheet
+     *
+     * @return CachedObjectStorage\ICache
      **/
     public static function getInstance(Worksheet $parent)
     {
@@ -218,7 +217,7 @@ class CachedObjectStorageFactory
     }
 
     /**
-     * Clear the cache storage
+     * Clear the cache storage.
      **/
     public static function finalize()
     {

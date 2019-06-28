@@ -14,17 +14,16 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- * @version    ##VERSION##, ##DATE##
  */
 
 defined('IDENTIFIER_OLE') ||
@@ -68,29 +67,27 @@ class OLERead
     public $documentSummaryInformation = null;
 
     /**
-     * Read the file
+     * Read the file.
      *
-     * @param $sFileName string Filename
+     * @param $pFilename string Filename
+     *
      * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
      */
-    public function read($sFileName)
+    public function read($pFilename)
     {
-        // Check if file exists and is readable
-        if (!is_readable($sFileName)) {
-            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception('Could not open ' . $sFileName . ' for reading! File does not exist, or it is not readable.');
-        }
+        File::assertFile($pFilename);
 
         // Get the file identifier
         // Don't bother reading the whole file until we know it's a valid OLE file
-        $this->data = file_get_contents($sFileName, false, null, 0, 8);
+        $this->data = file_get_contents($pFilename, false, null, 0, 8);
 
         // Check OLE identifier
         if ($this->data != self::IDENTIFIER_OLE) {
-            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception('The filename ' . $sFileName . ' is not recognised as an OLE file');
+            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception('The filename ' . $pFilename . ' is not recognised as an OLE file');
         }
 
         // Get the file data
-        $this->data = file_get_contents($sFileName);
+        $this->data = file_get_contents($pFilename);
 
         // Total number of sectors used for the SAT
         $this->numBigBlockDepotBlocks = self::getInt4d($this->data, self::NUM_BIG_BLOCK_DEPOT_BLOCKS_POS);
@@ -166,9 +163,10 @@ class OLERead
     }
 
     /**
-     * Extract binary stream data
+     * Extract binary stream data.
      *
      * @param int $stream
+     *
      * @return string
      */
     public function getStream($stream)
@@ -192,32 +190,32 @@ class OLERead
             }
 
             return $streamData;
-        } else {
-            $numBlocks = $this->props[$stream]['size'] / self::BIG_BLOCK_SIZE;
-            if ($this->props[$stream]['size'] % self::BIG_BLOCK_SIZE != 0) {
-                ++$numBlocks;
-            }
-
-            if ($numBlocks == 0) {
-                return '';
-            }
-
-            $block = $this->props[$stream]['startBlock'];
-
-            while ($block != -2) {
-                $pos = ($block + 1) * self::BIG_BLOCK_SIZE;
-                $streamData .= substr($this->data, $pos, self::BIG_BLOCK_SIZE);
-                $block = self::getInt4d($this->bigBlockChain, $block * 4);
-            }
-
-            return $streamData;
         }
+        $numBlocks = $this->props[$stream]['size'] / self::BIG_BLOCK_SIZE;
+        if ($this->props[$stream]['size'] % self::BIG_BLOCK_SIZE != 0) {
+            ++$numBlocks;
+        }
+
+        if ($numBlocks == 0) {
+            return '';
+        }
+
+        $block = $this->props[$stream]['startBlock'];
+
+        while ($block != -2) {
+            $pos = ($block + 1) * self::BIG_BLOCK_SIZE;
+            $streamData .= substr($this->data, $pos, self::BIG_BLOCK_SIZE);
+            $block = self::getInt4d($this->bigBlockChain, $block * 4);
+        }
+
+        return $streamData;
     }
 
     /**
-     * Read a standard stream (by joining sectors using information from SAT)
+     * Read a standard stream (by joining sectors using information from SAT).
      *
      * @param int $bl Sector ID where the stream starts
+     *
      * @return string Data for standard stream
      */
     private function _readData($bl)
@@ -294,14 +292,23 @@ class OLERead
     }
 
     /**
-     * Read 4 bytes of data at specified position
+     * Read 4 bytes of data at specified position.
      *
      * @param string $data
      * @param int $pos
+     *
      * @return int
      */
     private static function getInt4d($data, $pos)
     {
+        if (trim($data) == '') {
+            // No data provided
+            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception('Parameter data is empty.');
+        } elseif ($pos < 0) {
+            // Invalid position
+            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception('Parameter pos=' . $pos . ' is invalid.');
+        }
+
         $len = strlen($data);
         if ($len < $pos + 4) {
             $data .= str_repeat("\0", $pos + 4 - $len);
@@ -309,7 +316,7 @@ class OLERead
 
         // FIX: represent numbers correctly on 64-bit system
         // http://sourceforge.net/tracker/index.php?func=detail&aid=1487372&group_id=99160&atid=623334
-        // Hacked by Andreas Rehm 2006 to ensure correct result of the <<24 block on 32 and 64bit systems
+        // Changed by Andreas Rehm 2006 to ensure correct result of the <<24 block on 32 and 64bit systems
         $_or_24 = ord($data[$pos + 3]);
         if ($_or_24 >= 128) {
             // negative number

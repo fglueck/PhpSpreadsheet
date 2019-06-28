@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Style;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -12,17 +12,17 @@ namespace PhpOffice\PhpSpreadsheet\Style;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- * @version    ##VERSION##, ##DATE##
  */
 class Conditional implements \PhpOffice\PhpSpreadsheet\IComparable
 {
@@ -47,42 +47,42 @@ class Conditional implements \PhpOffice\PhpSpreadsheet\IComparable
     const OPERATOR_BETWEEN = 'between';
 
     /**
-     * Condition type
+     * Condition type.
      *
      * @var string
      */
     private $conditionType;
 
     /**
-     * Operator type
+     * Operator type.
      *
      * @var string
      */
     private $operatorType;
 
     /**
-     * Text
+     * Text.
      *
      * @var string
      */
     private $text;
 
     /**
-     * Condition
+     * Condition.
      *
      * @var string[]
      */
     private $condition = [];
 
     /**
-     * Style
+     * Style.
      *
      * @var \PhpOffice\PhpSpreadsheet\Style
      */
     private $style;
 
     /**
-     * Create a new Conditional
+     * Create a new Conditional.
      */
     public function __construct()
     {
@@ -95,7 +95,7 @@ class Conditional implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get Condition type
+     * Get Condition type.
      *
      * @return string
      */
@@ -105,9 +105,10 @@ class Conditional implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set Condition type
+     * Set Condition type.
      *
-     * @param string $pValue    Condition type
+     * @param string $pValue Condition type
+     *
      * @return Conditional
      */
     public function setConditionType($pValue = self::CONDITION_NONE)
@@ -118,7 +119,7 @@ class Conditional implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get Operator type
+     * Get Operator type.
      *
      * @return string
      */
@@ -128,9 +129,10 @@ class Conditional implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set Operator type
+     * Set Operator type.
      *
-     * @param string $pValue    Conditional operator type
+     * @param string $pValue Conditional operator type
+     *
      * @return Conditional
      */
     public function setOperatorType($pValue = self::OPERATOR_NONE)
@@ -141,7 +143,7 @@ class Conditional implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get text
+     * Get text.
      *
      * @return string
      */
@@ -151,9 +153,10 @@ class Conditional implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set text
+     * Set text.
      *
      * @param string $value
+     *
      * @return Conditional
      */
     public function setText($value = null)
@@ -164,38 +167,7 @@ class Conditional implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get Condition
-     *
-     * @deprecated Deprecated, use getConditions instead
-     * @return string
-     */
-    public function getCondition()
-    {
-        if (isset($this->condition[0])) {
-            return $this->condition[0];
-        }
-
-        return '';
-    }
-
-    /**
-     * Set Condition
-     *
-     * @deprecated Deprecated, use setConditions instead
-     * @param string $pValue    Condition
-     * @return Conditional
-     */
-    public function setCondition($pValue = '')
-    {
-        if (!is_array($pValue)) {
-            $pValue = [$pValue];
-        }
-
-        return $this->setConditions($pValue);
-    }
-
-    /**
-     * Get Conditions
+     * Get Conditions.
      *
      * @return string[]
      */
@@ -205,9 +177,10 @@ class Conditional implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set Conditions
+     * Set Conditions.
      *
-     * @param string[] $pValue    Condition
+     * @param string[] $pValue Condition
+     *
      * @return Conditional
      */
     public function setConditions($pValue)
@@ -221,9 +194,10 @@ class Conditional implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Add Condition
+     * Add Condition.
      *
-     * @param string $pValue    Condition
+     * @param string $pValue Condition
+     *
      * @return Conditional
      */
     public function addCondition($pValue = '')
@@ -234,7 +208,7 @@ class Conditional implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get Style
+     * Get Style.
      *
      * @return \PhpOffice\PhpSpreadsheet\Style
      */
@@ -244,11 +218,13 @@ class Conditional implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set Style
+     * Set Style.
      *
-     * @param   \PhpOffice\PhpSpreadsheet\Style $pValue
-     * @throws  \PhpOffice\PhpSpreadsheet\Exception
-     * @return  Conditional
+     * @param \PhpOffice\PhpSpreadsheet\Style $pValue
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     *
+     * @return Conditional
      */
     public function setStyle(\PhpOffice\PhpSpreadsheet\Style $pValue = null)
     {
@@ -258,9 +234,9 @@ class Conditional implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get hash code
+     * Get hash code.
      *
-     * @return string    Hash code
+     * @return string Hash code
      */
     public function getHashCode()
     {

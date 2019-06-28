@@ -22,35 +22,34 @@ class Matrix
     const ARRAY_LENGTH_EXCEPTION = 'Array length must be a multiple of m.';
 
     /**
-     *    Matrix storage
+     * Matrix storage.
      *
-     *    @var array
+     * @var array
      */
     public $A = [];
 
     /**
-     *    Matrix row dimension
+     * Matrix row dimension.
      *
-     *    @var int
+     * @var int
      */
     private $m;
 
     /**
-     *    Matrix column dimension
+     * Matrix column dimension.
      *
-     *    @var int
+     * @var int
      */
     private $n;
 
     /**
-     *    Polymorphic constructor
+     * Polymorphic constructor.
      *
-     *    As PHP has no support for polymorphic constructors, we hack our own sort of polymorphism using func_num_args, func_get_arg, and gettype. In essence, we're just implementing a simple RTTI filter and calling the appropriate constructor.
+     * As PHP has no support for polymorphic constructors, we use tricks to make our own sort of polymorphism using func_num_args, func_get_arg, and gettype. In essence, we're just implementing a simple RTTI filter and calling the appropriate constructor.
      */
-    public function __construct()
+    public function __construct(...$args)
     {
-        if (func_num_args() > 0) {
-            $args = func_get_args();
+        if (count($args) > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {
@@ -100,9 +99,9 @@ class Matrix
     }
 
     /**
-     *    getArray
+     * getArray.
      *
-     *    @return array Matrix array
+     * @return array Matrix array
      */
     public function getArray()
     {
@@ -110,9 +109,9 @@ class Matrix
     }
 
     /**
-     *    getRowDimension
+     * getRowDimension.
      *
-     *    @return int Row dimension
+     * @return int Row dimension
      */
     public function getRowDimension()
     {
@@ -120,9 +119,9 @@ class Matrix
     }
 
     /**
-     *    getColumnDimension
+     * getColumnDimension.
      *
-     *    @return int Column dimension
+     * @return int Column dimension
      */
     public function getColumnDimension()
     {
@@ -130,12 +129,14 @@ class Matrix
     }
 
     /**
-     *    get
+     * get.
      *
-     *    Get the i,j-th element of the matrix.
-     *    @param int $i Row position
-     *    @param int $j Column position
-     *    @return mixed Element (int/float/double)
+     * Get the i,j-th element of the matrix.
+     *
+     * @param int $i Row position
+     * @param int $j Column position
+     *
+     * @return mixed Element (int/float/double)
      */
     public function get($i = null, $j = null)
     {
@@ -143,19 +144,20 @@ class Matrix
     }
 
     /**
-     *    getMatrix
+     * getMatrix.
      *
      *    Get a submatrix
-     *    @param int $i0 Initial row index
-     *    @param int $iF Final row index
-     *    @param int $j0 Initial column index
-     *    @param int $jF Final column index
-     *    @return Matrix Submatrix
+     *
+     * @param int $i0 Initial row index
+     * @param int $iF Final row index
+     * @param int $j0 Initial column index
+     * @param int $jF Final column index
+     *
+     * @return Matrix Submatrix
      */
-    public function getMatrix()
+    public function getMatrix(...$args)
     {
-        if (func_num_args() > 0) {
-            $args = func_get_args();
+        if (count($args) > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {
@@ -225,28 +227,6 @@ class Matrix
 
                     return $R;
                     break;
-                //$RL = array of row indices; $CL = array of column indices
-                case 'array,array':
-                    list($RL, $CL) = $args;
-                    if (count($RL) > 0) {
-                        $m = count($RL);
-                    } else {
-                        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_BOUNDS_EXCEPTION);
-                    }
-                    if (count($CL) > 0) {
-                        $n = count($CL);
-                    } else {
-                        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_BOUNDS_EXCEPTION);
-                    }
-                    $R = new self($m, $n);
-                    for ($i = 0; $i < $m; ++$i) {
-                        for ($j = 0; $j < $n; ++$j) {
-                            $R->set($i, $j, $this->A[$RL[$i]][$CL[$j]]);
-                        }
-                    }
-
-                    return $R;
-                    break;
                 //A($i0...$iF); $CL = array of column indices
                 case 'integer,integer,array':
                     list($i0, $iF, $CL) = $args;
@@ -301,47 +281,55 @@ class Matrix
     }
 
     /**
-     *    checkMatrixDimensions
+     * checkMatrixDimensions.
      *
      *    Is matrix B the same size?
-     *    @param Matrix $B Matrix B
-     *    @return bool
+     *
+     * @param Matrix $B Matrix B
+     *
+     * @return bool
      */
     public function checkMatrixDimensions($B = null)
     {
         if ($B instanceof self) {
             if (($this->m == $B->getRowDimension()) && ($this->n == $B->getColumnDimension())) {
                 return true;
-            } else {
-                throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::MATRIX_DIMENSION_EXCEPTION);
             }
-        } else {
-            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_TYPE_EXCEPTION);
+            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::MATRIX_DIMENSION_EXCEPTION);
         }
-    }    //    function checkMatrixDimensions()
+        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_TYPE_EXCEPTION);
+    }
+
+    //    function checkMatrixDimensions()
 
     /**
-     *    set
+     * set.
      *
-     *    Set the i,j-th element of the matrix.
-     *    @param int $i Row position
-     *    @param int $j Column position
-     *    @param mixed $c Int/float/double value
-     *    @return mixed Element (int/float/double)
+     * Set the i,j-th element of the matrix.
+     *
+     * @param int $i Row position
+     * @param int $j Column position
+     * @param mixed $c Int/float/double value
+     *
+     * @return mixed Element (int/float/double)
      */
     public function set($i = null, $j = null, $c = null)
     {
         // Optimized set version just has this
         $this->A[$i][$j] = $c;
-    }    //    function set()
+    }
+
+    //    function set()
 
     /**
-     *    identity
+     * identity.
      *
-     *    Generate an identity matrix.
-     *    @param int $m Row dimension
-     *    @param int $n Column dimension
-     *    @return Matrix Identity matrix
+     * Generate an identity matrix.
+     *
+     * @param int $m Row dimension
+     * @param int $n Column dimension
+     *
+     * @return Matrix Identity matrix
      */
     public function identity($m = null, $n = null)
     {
@@ -349,13 +337,15 @@ class Matrix
     }
 
     /**
-     *    diagonal
+     * diagonal.
      *
      *    Generate a diagonal matrix
-     *    @param int $m Row dimension
-     *    @param int $n Column dimension
-     *    @param mixed $c Diagonal value
-     *    @return Matrix Diagonal matrix
+     *
+     * @param int $m Row dimension
+     * @param int $n Column dimension
+     * @param mixed $c Diagonal value
+     *
+     * @return Matrix Diagonal matrix
      */
     public function diagonal($m = null, $n = null, $c = 1)
     {
@@ -368,52 +358,55 @@ class Matrix
     }
 
     /**
-     *    getMatrixByRow
+     * getMatrixByRow.
      *
      *    Get a submatrix by row index/range
-     *    @param int $i0 Initial row index
-     *    @param int $iF Final row index
-     *    @return Matrix Submatrix
+     *
+     * @param int $i0 Initial row index
+     * @param int $iF Final row index
+     *
+     * @return Matrix Submatrix
      */
     public function getMatrixByRow($i0 = null, $iF = null)
     {
         if (is_int($i0)) {
             if (is_int($iF)) {
                 return $this->getMatrix($i0, 0, $iF + 1, $this->n);
-            } else {
-                return $this->getMatrix($i0, 0, $i0 + 1, $this->n);
             }
-        } else {
-            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_TYPE_EXCEPTION);
+
+            return $this->getMatrix($i0, 0, $i0 + 1, $this->n);
         }
+        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_TYPE_EXCEPTION);
     }
 
     /**
-     *    getMatrixByCol
+     * getMatrixByCol.
      *
      *    Get a submatrix by column index/range
-     *    @param int $j0 Initial column index
-     *    @param int $jF Final column index
-     *    @return Matrix Submatrix
+     *
+     * @param int $j0 Initial column index
+     * @param int $jF Final column index
+     *
+     * @return Matrix Submatrix
      */
     public function getMatrixByCol($j0 = null, $jF = null)
     {
         if (is_int($j0)) {
             if (is_int($jF)) {
                 return $this->getMatrix(0, $j0, $this->m, $jF + 1);
-            } else {
-                return $this->getMatrix(0, $j0, $this->m, $j0 + 1);
             }
-        } else {
-            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_TYPE_EXCEPTION);
+
+            return $this->getMatrix(0, $j0, $this->m, $j0 + 1);
         }
+        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_TYPE_EXCEPTION);
     }
 
     /**
-     *    transpose
+     * transpose.
      *
      *    Tranpose matrix
-     *    @return Matrix Transposed matrix
+     *
+     * @return Matrix Transposed matrix
      */
     public function transpose()
     {
@@ -425,13 +418,16 @@ class Matrix
         }
 
         return $R;
-    }    //    function transpose()
+    }
+
+    //    function transpose()
 
     /**
-     *    trace
+     * trace.
      *
      *    Sum of diagonal elements
-     *    @return float Sum of diagonal elements
+     *
+     * @return float Sum of diagonal elements
      */
     public function trace()
     {
@@ -445,26 +441,28 @@ class Matrix
     }
 
     /**
-     *    uminus
+     * uminus.
      *
      *    Unary minus matrix -A
-     *    @return Matrix Unary minus matrix
+     *
+     * @return Matrix Unary minus matrix
      */
     public function uminus()
     {
     }
 
     /**
-     *    plus
+     * plus.
      *
      *    A + B
-     *    @param mixed $B Matrix/Array
-     *    @return Matrix Sum
+     *
+     * @param mixed $B Matrix/Array
+     *
+     * @return Matrix Sum
      */
-    public function plus()
+    public function plus(...$args)
     {
-        if (func_num_args() > 0) {
-            $args = func_get_args();
+        if (count($args) > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {
@@ -490,22 +488,22 @@ class Matrix
             }
 
             return $M;
-        } else {
-            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
         }
+        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
     /**
-     *    plusEquals
+     * plusEquals.
      *
      *    A = A + B
-     *    @param mixed $B Matrix/Array
-     *    @return Matrix Sum
+     *
+     * @param mixed $B Matrix/Array
+     *
+     * @return Matrix Sum
      */
-    public function plusEquals()
+    public function plusEquals(...$args)
     {
-        if (func_num_args() > 0) {
-            $args = func_get_args();
+        if (count($args) > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {
@@ -545,22 +543,22 @@ class Matrix
             }
 
             return $this;
-        } else {
-            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
         }
+        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
     /**
-     *    minus
+     * minus.
      *
      *    A - B
-     *    @param mixed $B Matrix/Array
-     *    @return Matrix Sum
+     *
+     * @param mixed $B Matrix/Array
+     *
+     * @return Matrix Sum
      */
-    public function minus()
+    public function minus(...$args)
     {
-        if (func_num_args() > 0) {
-            $args = func_get_args();
+        if (count($args) > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {
@@ -586,22 +584,22 @@ class Matrix
             }
 
             return $M;
-        } else {
-            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
         }
+        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
     /**
-     *    minusEquals
+     * minusEquals.
      *
      *    A = A - B
-     *    @param mixed $B Matrix/Array
-     *    @return Matrix Sum
+     *
+     * @param mixed $B Matrix/Array
+     *
+     * @return Matrix Sum
      */
-    public function minusEquals()
+    public function minusEquals(...$args)
     {
-        if (func_num_args() > 0) {
-            $args = func_get_args();
+        if (count($args) > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {
@@ -641,23 +639,23 @@ class Matrix
             }
 
             return $this;
-        } else {
-            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
         }
+        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
     /**
-     *    arrayTimes
+     * arrayTimes.
      *
      *    Element-by-element multiplication
      *    Cij = Aij * Bij
-     *    @param mixed $B Matrix/Array
-     *    @return Matrix Matrix Cij
+     *
+     * @param mixed $B Matrix/Array
+     *
+     * @return Matrix Matrix Cij
      */
-    public function arrayTimes()
+    public function arrayTimes(...$args)
     {
-        if (func_num_args() > 0) {
-            $args = func_get_args();
+        if (count($args) > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {
@@ -683,23 +681,23 @@ class Matrix
             }
 
             return $M;
-        } else {
-            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
         }
+        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
     /**
-     *    arrayTimesEquals
+     * arrayTimesEquals.
      *
      *    Element-by-element multiplication
      *    Aij = Aij * Bij
-     *    @param mixed $B Matrix/Array
-     *    @return Matrix Matrix Aij
+     *
+     * @param mixed $B Matrix/Array
+     *
+     * @return Matrix Matrix Aij
      */
-    public function arrayTimesEquals()
+    public function arrayTimesEquals(...$args)
     {
-        if (func_num_args() > 0) {
-            $args = func_get_args();
+        if (count($args) > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {
@@ -739,23 +737,23 @@ class Matrix
             }
 
             return $this;
-        } else {
-            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
         }
+        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
     /**
-     *    arrayRightDivide
+     * arrayRightDivide.
      *
      *    Element-by-element right division
      *    A / B
-     *    @param Matrix $B Matrix B
-     *    @return Matrix Division result
+     *
+     * @param Matrix $B Matrix B
+     *
+     * @return Matrix Division result
      */
-    public function arrayRightDivide()
+    public function arrayRightDivide(...$args)
     {
-        if (func_num_args() > 0) {
-            $args = func_get_args();
+        if (count($args) > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {
@@ -800,23 +798,23 @@ class Matrix
             }
 
             return $M;
-        } else {
-            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
         }
+        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
     /**
-     *    arrayRightDivideEquals
+     * arrayRightDivideEquals.
      *
      *    Element-by-element right division
      *    Aij = Aij / Bij
-     *    @param mixed $B Matrix/Array
-     *    @return Matrix Matrix Aij
+     *
+     * @param mixed $B Matrix/Array
+     *
+     * @return Matrix Matrix Aij
      */
-    public function arrayRightDivideEquals()
+    public function arrayRightDivideEquals(...$args)
     {
-        if (func_num_args() > 0) {
-            $args = func_get_args();
+        if (count($args) > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {
@@ -842,23 +840,23 @@ class Matrix
             }
 
             return $M;
-        } else {
-            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
         }
+        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
     /**
-     *    arrayLeftDivide
+     * arrayLeftDivide.
      *
      *    Element-by-element Left division
      *    A / B
-     *    @param Matrix $B Matrix B
-     *    @return Matrix Division result
+     *
+     * @param Matrix $B Matrix B
+     *
+     * @return Matrix Division result
      */
-    public function arrayLeftDivide()
+    public function arrayLeftDivide(...$args)
     {
-        if (func_num_args() > 0) {
-            $args = func_get_args();
+        if (count($args) > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {
@@ -884,23 +882,23 @@ class Matrix
             }
 
             return $M;
-        } else {
-            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
         }
+        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
     /**
-     *    arrayLeftDivideEquals
+     * arrayLeftDivideEquals.
      *
      *    Element-by-element Left division
      *    Aij = Aij / Bij
-     *    @param mixed $B Matrix/Array
-     *    @return Matrix Matrix Aij
+     *
+     * @param mixed $B Matrix/Array
+     *
+     * @return Matrix Matrix Aij
      */
-    public function arrayLeftDivideEquals()
+    public function arrayLeftDivideEquals(...$args)
     {
-        if (func_num_args() > 0) {
-            $args = func_get_args();
+        if (count($args) > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {
@@ -926,22 +924,22 @@ class Matrix
             }
 
             return $M;
-        } else {
-            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
         }
+        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
     /**
-     *    times
+     * times.
      *
      *    Matrix multiplication
-     *    @param mixed $n Matrix/Array/Scalar
-     *    @return Matrix Product
+     *
+     * @param mixed $n Matrix/Array/Scalar
+     *
+     * @return Matrix Product
      */
-    public function times()
+    public function times(...$args)
     {
-        if (func_num_args() > 0) {
-            $args = func_get_args();
+        if (count() > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {
@@ -968,10 +966,8 @@ class Matrix
                         }
 
                         return $C;
-                    } else {
-                        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(JAMAError(MatrixDimensionMismatch));
                     }
-                    break;
+                    throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(JAMAError(MatrixDimensionMismatch));
                 case 'array':
                     $B = new self($args[0]);
                     if ($this->n == $B->m) {
@@ -987,12 +983,8 @@ class Matrix
                         }
 
                         return $C;
-                    } else {
-                        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(JAMAError(MatrixDimensionMismatch));
                     }
-
-                    return $M;
-                    break;
+                    throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(JAMAError(MatrixDimensionMismatch));
                 case 'integer':
                     $C = new self($this->A);
                     for ($i = 0; $i < $C->m; ++$i) {
@@ -1002,7 +994,6 @@ class Matrix
                     }
 
                     return $C;
-                    break;
                 case 'double':
                     $C = new self($this->m, $this->n);
                     for ($i = 0; $i < $C->m; ++$i) {
@@ -1012,7 +1003,6 @@ class Matrix
                     }
 
                     return $C;
-                    break;
                 case 'float':
                     $C = new self($this->A);
                     for ($i = 0; $i < $C->m; ++$i) {
@@ -1022,10 +1012,8 @@ class Matrix
                     }
 
                     return $C;
-                    break;
                 default:
                     throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
-                    break;
             }
         } else {
             throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
@@ -1033,16 +1021,17 @@ class Matrix
     }
 
     /**
-     *    power
+     * power.
      *
      *    A = A ^ B
-     *    @param mixed $B Matrix/Array
-     *    @return Matrix Sum
+     *
+     * @param mixed $B Matrix/Array
+     *
+     * @return Matrix Sum
      */
-    public function power()
+    public function power(...$args)
     {
-        if (func_num_args() > 0) {
-            $args = func_get_args();
+        if (count() > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {
@@ -1082,22 +1071,22 @@ class Matrix
             }
 
             return $this;
-        } else {
-            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
         }
+        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
     /**
-     *    concat
+     * concat.
      *
      *    A = A & B
-     *    @param mixed $B Matrix/Array
-     *    @return Matrix Sum
+     *
+     * @param mixed $B Matrix/Array
+     *
+     * @return Matrix Sum
      */
-    public function concat()
+    public function concat(...$args)
     {
-        if (func_num_args() > 0) {
-            $args = func_get_args();
+        if (count($args) > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {
@@ -1123,16 +1112,16 @@ class Matrix
             }
 
             return $this;
-        } else {
-            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
         }
+        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
     /**
-     *    Solve A*X = B.
+     * Solve A*X = B.
      *
-     *    @param Matrix $B Right hand side
-     *    @return Matrix ... Solution if A is square, least squares solution otherwise
+     * @param Matrix $B Right hand side
+     *
+     * @return Matrix ... Solution if A is square, least squares solution otherwise
      */
     public function solve($B)
     {
@@ -1140,17 +1129,16 @@ class Matrix
             $LU = new LUDecomposition($this);
 
             return $LU->solve($B);
-        } else {
-            $QR = new QRDecomposition($this);
-
-            return $QR->solve($B);
         }
+        $QR = new QRDecomposition($this);
+
+        return $QR->solve($B);
     }
 
     /**
-     *    Matrix inverse or pseudoinverse.
+     * Matrix inverse or pseudoinverse.
      *
-     *    @return Matrix ... Inverse(A) if A is square, pseudoinverse otherwise.
+     * @return Matrix ... Inverse(A) if A is square, pseudoinverse otherwise.
      */
     public function inverse()
     {
@@ -1158,10 +1146,11 @@ class Matrix
     }
 
     /**
-     *    det
+     * det.
      *
      *    Calculate determinant
-     *    @return float Determinant
+     *
+     * @return float Determinant
      */
     public function det()
     {

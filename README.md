@@ -16,7 +16,7 @@ Develop:
 
 PhpSpreadsheet is a library written in pure PHP and providing a set of classes that allow you to read from and to write to different spreadsheet file formats, like Excel and LibreOffice Calc.
 
-## File Formats supported
+## File formats supported
 
 |Format                                      |Reading|Writing|
 |--------------------------------------------|:-----:|:-----:|
@@ -33,14 +33,18 @@ PhpSpreadsheet is a library written in pure PHP and providing a set of classes t
 
 ## Requirements
 
- * PHP version 5.5.0 or higher
+ * PHP version 5.6 or higher
  * PHP extension php_zip enabled (required if you need PhpSpreadsheet to handle .xlsx .ods or .gnumeric files)
  * PHP extension php_xml enabled
  * PHP extension php_gd2 enabled (optional, but required for exact column width autocalculation)
 
-## PHP Version Support
+*Note:* PHP 5.6.29 has [a bug](https://bugs.php.net/bug.php?id=735300) that
+prevents SQLite3 caching to work correctly. Use a newer (or older) versions of
+PHP if you need SQLite3 caching.
 
- * Support for PHP versions will only be maintained for a period of six months beyond the end-of-life of that PHP version
+## PHP version support
+
+Support for PHP versions will only be maintained for a period of six months beyond the end-of-life of that PHP version
 
 ## Want to contribute?
 
@@ -48,10 +52,17 @@ If you would like to contribute, here are some notes and guidelines:
  - All new development happens on feature/fix branches referenced with the GitHub issue number, and are then merged to the develop branch; so the develop branch is always the most up-to-date, working code
  - The master branch only contains tagged releases
  - If you are going to be submitting a pull request, please fork from develop, and submit your pull request back as a fix/feature branch referencing the GitHub issue number
- - Wherever possible, code changes should conform to PSR-2 standards
+ - Code changes must be validated by PHP-CS-Fixer and PHP_CodeSniffer (via `./vendor/bin/php-cs-fixer fix --verbose && ./vendor/bin/phpcs samples/ src/ tests/ --standard=PSR2 -n`)
  - [Helpful article about forking](https://help.github.com/articles/fork-a-repo/ "Forking a GitHub repository")
  - [Helpful article about pull requests](https://help.github.com/articles/using-pull-requests/ "Pull Requests")
 
+## PHPExcel vs PhpSpreadsheet ?
+
+PhpSpreadsheet is the next version of PHPExcel. It breaks compatibility to dramatically improve the code base quality (namespaces, PSR compliance, use of latest PHP language features, etc.).
+
+Because all efforts have shifted to PhpSpreadsheet, PHPExcel will no longer be maintained. All contributions for PHPExcel, patches and new features, should target PhpSpreadsheet develop branch.
+
+However PhpSpreadsheet is still unstable and not yet released. So if you need stability stick to PHPExcel until this project is released. If you prefer to live on the edge you can try to install this project [manually via composer](https://getcomposer.org/doc/05-repositories.md#loading-a-package-from-a-vcs-repository), but there is no guarantee and it will likely break again before an official release.
 
 ## License
 

@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -12,113 +12,113 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- * @version    ##VERSION##, ##DATE##
  */
 class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
 {
     /**
-     * Image counter
+     * Image counter.
      *
      * @var int
      */
     private static $imageCounter = 0;
 
     /**
-     * Image index
+     * Image index.
      *
      * @var int
      */
     private $imageIndex = 0;
 
     /**
-     * Name
+     * Name.
      *
      * @var string
      */
     protected $name;
 
     /**
-     * Description
+     * Description.
      *
      * @var string
      */
     protected $description;
 
     /**
-     * Worksheet
+     * Worksheet.
      *
      * @var \PhpOffice\PhpSpreadsheet\Worksheet
      */
     protected $worksheet;
 
     /**
-     * Coordinates
+     * Coordinates.
      *
      * @var string
      */
     protected $coordinates;
 
     /**
-     * Offset X
+     * Offset X.
      *
      * @var int
      */
     protected $offsetX;
 
     /**
-     * Offset Y
+     * Offset Y.
      *
      * @var int
      */
     protected $offsetY;
 
     /**
-     * Width
+     * Width.
      *
      * @var int
      */
     protected $width;
 
     /**
-     * Height
+     * Height.
      *
      * @var int
      */
     protected $height;
 
     /**
-     * Proportional resize
+     * Proportional resize.
      *
      * @var bool
      */
     protected $resizeProportional;
 
     /**
-     * Rotation
+     * Rotation.
      *
      * @var int
      */
     protected $rotation;
 
     /**
-     * Shadow
+     * Shadow.
      *
      * @var Drawing\Shadow
      */
     protected $shadow;
 
     /**
-     * Create a new BaseDrawing
+     * Create a new BaseDrawing.
      */
     public function __construct()
     {
@@ -140,7 +140,7 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get image index
+     * Get image index.
      *
      * @return int
      */
@@ -150,7 +150,7 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get Name
+     * Get Name.
      *
      * @return string
      */
@@ -160,9 +160,10 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set Name
+     * Set Name.
      *
      * @param string $pValue
+     *
      * @return BaseDrawing
      */
     public function setName($pValue = '')
@@ -173,7 +174,7 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get Description
+     * Get Description.
      *
      * @return string
      */
@@ -183,9 +184,10 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set Description
+     * Set Description.
      *
      * @param string $pValue
+     *
      * @return BaseDrawing
      */
     public function setDescription($pValue = '')
@@ -196,7 +198,7 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get Worksheet
+     * Get Worksheet.
      *
      * @return \PhpOffice\PhpSpreadsheet\Worksheet
      */
@@ -206,12 +208,14 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set Worksheet
+     * Set Worksheet.
      *
-     * @param     \PhpOffice\PhpSpreadsheet\Worksheet     $pValue
-     * @param     bool                 $pOverrideOld    If a Worksheet has already been assigned, overwrite it and remove image from old Worksheet?
-     * @throws    \PhpOffice\PhpSpreadsheet\Exception
-     * @return    BaseDrawing
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pValue
+     * @param bool $pOverrideOld If a Worksheet has already been assigned, overwrite it and remove image from old Worksheet?
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     *
+     * @return BaseDrawing
      */
     public function setWorksheet(\PhpOffice\PhpSpreadsheet\Worksheet $pValue = null, $pOverrideOld = false)
     {
@@ -244,7 +248,7 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get Coordinates
+     * Get Coordinates.
      *
      * @return string
      */
@@ -254,9 +258,10 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set Coordinates
+     * Set Coordinates.
      *
      * @param string $pValue
+     *
      * @return BaseDrawing
      */
     public function setCoordinates($pValue = 'A1')
@@ -267,7 +272,7 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get OffsetX
+     * Get OffsetX.
      *
      * @return int
      */
@@ -277,9 +282,10 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set OffsetX
+     * Set OffsetX.
      *
      * @param int $pValue
+     *
      * @return BaseDrawing
      */
     public function setOffsetX($pValue = 0)
@@ -290,7 +296,7 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get OffsetY
+     * Get OffsetY.
      *
      * @return int
      */
@@ -300,9 +306,10 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set OffsetY
+     * Set OffsetY.
      *
      * @param int $pValue
+     *
      * @return BaseDrawing
      */
     public function setOffsetY($pValue = 0)
@@ -313,7 +320,7 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get Width
+     * Get Width.
      *
      * @return int
      */
@@ -323,9 +330,10 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set Width
+     * Set Width.
      *
      * @param int $pValue
+     *
      * @return BaseDrawing
      */
     public function setWidth($pValue = 0)
@@ -343,7 +351,7 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get Height
+     * Get Height.
      *
      * @return int
      */
@@ -353,9 +361,10 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set Height
+     * Set Height.
      *
      * @param int $pValue
+     *
      * @return BaseDrawing
      */
     public function setHeight($pValue = 0)
@@ -378,11 +387,13 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
      * <code>
      * $objDrawing->setResizeProportional(true);
      * $objDrawing->setWidthAndHeight(160,120);
-     * </code>
+     * </code>.
      *
      * @author Vincent@luo MSN:kele_100@hotmail.com
+     *
      * @param int $width
      * @param int $height
+     *
      * @return BaseDrawing
      */
     public function setWidthAndHeight($width = 0, $height = 0)
@@ -406,7 +417,7 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get ResizeProportional
+     * Get ResizeProportional.
      *
      * @return bool
      */
@@ -416,9 +427,10 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set ResizeProportional
+     * Set ResizeProportional.
      *
      * @param bool $pValue
+     *
      * @return BaseDrawing
      */
     public function setResizeProportional($pValue = true)
@@ -429,7 +441,7 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get Rotation
+     * Get Rotation.
      *
      * @return int
      */
@@ -439,9 +451,10 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set Rotation
+     * Set Rotation.
      *
      * @param int $pValue
+     *
      * @return BaseDrawing
      */
     public function setRotation($pValue = 0)
@@ -452,7 +465,7 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get Shadow
+     * Get Shadow.
      *
      * @return Drawing\Shadow
      */
@@ -462,11 +475,13 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set Shadow
+     * Set Shadow.
      *
-     * @param     Drawing\Shadow $pValue
-     * @throws    \PhpOffice\PhpSpreadsheet\Exception
-     * @return    BaseDrawing
+     * @param Drawing\Shadow $pValue
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     *
+     * @return BaseDrawing
      */
     public function setShadow(Drawing\Shadow $pValue = null)
     {
@@ -476,9 +491,9 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get hash code
+     * Get hash code.
      *
-     * @return string    Hash code
+     * @return string Hash code
      */
     public function getHashCode()
     {

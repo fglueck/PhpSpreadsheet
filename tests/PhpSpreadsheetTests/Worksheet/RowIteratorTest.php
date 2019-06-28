@@ -22,11 +22,8 @@ class RowIteratorTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $this->mockWorksheet->expects($this->any())
-                 ->method('getHighestRow')
-                 ->will($this->returnValue(5));
-        $this->mockWorksheet->expects($this->any())
-                 ->method('current')
-                 ->will($this->returnValue($this->mockRow));
+            ->method('getHighestRow')
+            ->will($this->returnValue(5));
     }
 
     public function testIteratorFullRange()

@@ -12,19 +12,8 @@ use PhpOffice\PhpSpreadsheet\Worksheet;
 
 class AdvancedValueBinderTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
-    {
-        if (!defined('PHPSPREADSHEET_ROOT')) {
-            define('PHPSPREADSHEET_ROOT', APPLICATION_PATH . '/');
-        }
-        require_once PHPSPREADSHEET_ROOT . '/Bootstrap.php';
-    }
-
     public function provider()
     {
-        if (!class_exists(NumberFormat::class)) {
-            $this->setUp();
-        }
         $currencyUSD = NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
         $currencyEURO = str_replace('$', '€', NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
 
@@ -42,33 +31,39 @@ class AdvancedValueBinderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider provider
+     *
+     * @param mixed $value
+     * @param mixed $valueBinded
+     * @param mixed $format
+     * @param mixed $thousandsSeparator
+     * @param mixed $decimalSeparator
+     * @param mixed $currencyCode
      */
     public function testCurrency($value, $valueBinded, $format, $thousandsSeparator, $decimalSeparator, $currencyCode)
     {
-        $sheet = $this->getMock(
-            Worksheet::class,
-            ['getStyle', 'getNumberFormat', 'setFormatCode', 'getCellCacheController']
-        );
+        $sheet = $this->getMockBuilder(Worksheet::class)
+            ->setMethods(['getStyle', 'getNumberFormat', 'setFormatCode', 'getCellCacheController'])
+            ->getMock();
         $cache = $this->getMockBuilder(Memory::class)
             ->disableOriginalConstructor()
             ->getMock();
         $cache->expects($this->any())
-                 ->method('getParent')
-                 ->will($this->returnValue($sheet));
+            ->method('getParent')
+            ->will($this->returnValue($sheet));
 
         $sheet->expects($this->once())
-                 ->method('getStyle')
-                 ->will($this->returnSelf());
+            ->method('getStyle')
+            ->will($this->returnSelf());
         $sheet->expects($this->once())
-                 ->method('getNumberFormat')
-                 ->will($this->returnSelf());
+            ->method('getNumberFormat')
+            ->will($this->returnSelf());
         $sheet->expects($this->once())
-                 ->method('setFormatCode')
-                 ->with($format)
-                 ->will($this->returnSelf());
+            ->method('setFormatCode')
+            ->with($format)
+            ->will($this->returnSelf());
         $sheet->expects($this->any())
-                 ->method('getCellCacheController')
-                 ->will($this->returnValue($cache));
+            ->method('getCellCacheController')
+            ->will($this->returnValue($cache));
 
         StringHelper::setCurrencyCode($currencyCode);
         StringHelper::setDecimalSeparator($decimalSeparator);

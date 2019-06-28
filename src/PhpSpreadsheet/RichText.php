@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -12,31 +12,32 @@ namespace PhpOffice\PhpSpreadsheet;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- * @version    ##VERSION##, ##DATE##
  */
 class RichText implements IComparable
 {
     /**
-     * Rich text elements
+     * Rich text elements.
      *
      * @var RichText\ITextElement[]
      */
     private $richTextElements;
 
     /**
-     * Create a new RichText instance
+     * Create a new RichText instance.
      *
      * @param Cell $pCell
+     *
      * @throws Exception
      */
     public function __construct(Cell $pCell = null)
@@ -49,7 +50,7 @@ class RichText implements IComparable
             // Add cell text and style
             if ($pCell->getValue() != '') {
                 $objRun = new RichText\Run($pCell->getValue());
-                $objRun->setFont(clone $pCell->getParent()->getStyle($pCell->getCoordinate())->getFont());
+                $objRun->setFont(clone $pCell->getWorksheet()->getStyle($pCell->getCoordinate())->getFont());
                 $this->addText($objRun);
             }
 
@@ -59,10 +60,12 @@ class RichText implements IComparable
     }
 
     /**
-     * Add text
+     * Add text.
      *
      * @param RichText\ITextElement $pText Rich text element
+     *
      * @throws Exception
+     *
      * @return RichText
      */
     public function addText(RichText\ITextElement $pText = null)
@@ -73,10 +76,12 @@ class RichText implements IComparable
     }
 
     /**
-     * Create text
+     * Create text.
      *
      * @param string $pText Text
+     *
      * @throws Exception
+     *
      * @return RichText\TextElement
      */
     public function createText($pText = '')
@@ -88,10 +93,12 @@ class RichText implements IComparable
     }
 
     /**
-     * Create text run
+     * Create text run.
      *
      * @param string $pText Text
+     *
      * @throws Exception
+     *
      * @return RichText\Run
      */
     public function createTextRun($pText = '')
@@ -103,7 +110,7 @@ class RichText implements IComparable
     }
 
     /**
-     * Get plain text
+     * Get plain text.
      *
      * @return string
      */
@@ -121,7 +128,7 @@ class RichText implements IComparable
     }
 
     /**
-     * Convert to string
+     * Convert to string.
      *
      * @return string
      */
@@ -131,7 +138,7 @@ class RichText implements IComparable
     }
 
     /**
-     * Get Rich Text elements
+     * Get Rich Text elements.
      *
      * @return RichText\ITextElement[]
      */
@@ -141,10 +148,12 @@ class RichText implements IComparable
     }
 
     /**
-     * Set Rich Text elements
+     * Set Rich Text elements.
      *
      * @param RichText\ITextElement[] $pElements Array of elements
+     *
      * @throws Exception
+     *
      * @return RichText
      */
     public function setRichTextElements($pElements = null)
@@ -159,9 +168,9 @@ class RichText implements IComparable
     }
 
     /**
-     * Get hash code
+     * Get hash code.
      *
-     * @return string    Hash code
+     * @return string Hash code
      */
     public function getHashCode()
     {

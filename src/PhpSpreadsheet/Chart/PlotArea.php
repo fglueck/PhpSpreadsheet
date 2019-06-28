@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Chart;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -12,36 +12,38 @@ namespace PhpOffice\PhpSpreadsheet\Chart;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category    PhpSpreadsheet
+ *
  * @copyright   Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- * @version     ##VERSION##, ##DATE##
  */
 class PlotArea
 {
     /**
-     * PlotArea Layout
+     * PlotArea Layout.
      *
      * @var Layout
      */
     private $layout = null;
 
     /**
-     * Plot Series
+     * Plot Series.
      *
      * @var array of DataSeries
      */
     private $plotSeries = [];
 
     /**
-     * Create a new PlotArea
+     * Create a new PlotArea.
+     *
+     * @param mixed $plotSeries
      */
     public function __construct(Layout $layout = null, $plotSeries = [])
     {
@@ -50,7 +52,7 @@ class PlotArea
     }
 
     /**
-     * Get Layout
+     * Get Layout.
      *
      * @return Layout
      */
@@ -60,7 +62,7 @@ class PlotArea
     }
 
     /**
-     * Get Number of Plot Groups
+     * Get Number of Plot Groups.
      *
      * @return array of DataSeries
      */
@@ -70,7 +72,7 @@ class PlotArea
     }
 
     /**
-     * Get Number of Plot Series
+     * Get Number of Plot Series.
      *
      * @return int
      */
@@ -85,7 +87,7 @@ class PlotArea
     }
 
     /**
-     * Get Plot Series
+     * Get Plot Series.
      *
      * @return array of DataSeries
      */
@@ -95,7 +97,9 @@ class PlotArea
     }
 
     /**
-     * Get Plot Series by Index
+     * Get Plot Series by Index.
+     *
+     * @param mixed $index
      *
      * @return DataSeries
      */
@@ -105,9 +109,11 @@ class PlotArea
     }
 
     /**
-     * Set Plot Series
+     * Set Plot Series.
      *
-     * @param  DataSeries[]
+     * @param DataSeries[]
+     * @param mixed $plotSeries
+     *
      * @return PlotArea
      */
     public function setPlotSeries($plotSeries = [])

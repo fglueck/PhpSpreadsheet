@@ -7,7 +7,6 @@ use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 class RuleTest extends \PHPUnit_Framework_TestCase
 {
     private $testAutoFilterRuleObject;
-
     private $mockAutoFilterColumnObject;
 
     public function setUp()
@@ -15,10 +14,6 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $this->mockAutoFilterColumnObject = $this->getMockBuilder(Column::class)
             ->disableOriginalConstructor()
             ->getMock();
-
-        $this->mockAutoFilterColumnObject->expects($this->any())
-            ->method('testColumnInRange')
-            ->will($this->returnValue(3));
 
         $this->testAutoFilterRuleObject = new Column\Rule(
             $this->mockAutoFilterColumnObject
